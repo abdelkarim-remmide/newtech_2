@@ -926,7 +926,8 @@
                             @guest
                             <li class="log login"><i class="fa fa-lock"></i> <a class="link-lg" href="{{route('login')}}">Login </a> or <a href="{{route('register')}}">Register</a></li>
                             @else
-                            <li><a class="dropdown-item" href="{{ route('logout') }}"
+                        <li style="padding-right:10px"><a href="{{ route('users.edit') }}">My account</a><li>
+                            <li><a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}

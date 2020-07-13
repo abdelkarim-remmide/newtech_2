@@ -29,219 +29,26 @@
                 	<div class="modcontent">
                 		<div class="box-category">
                 			<ul id="cat_accordion" class="list-group">
-                				<li class="hadchild"><a href="category.html" class="cutom-parent">Smartphone & Tablets</a>   <span class="button-view  fa fa-plus-square-o"></span>
-                					<ul style="display: block;">
-                						<li><a href="category.html">Men's Watches</a></li>
-                						<li><a href="category.html">Women's Watches</a></li>
-                						<li><a href="category.html">Kids' Watches</a></li>
-                						<li><a href="category.html">Accessories</a></li>
+                				@foreach ($categories as $category)
+                                <li class="@if (count($category->childCategory)) hadchild @endif"><a href="{{route('category.index',['category'=>$category->slug])}}" class="@if (count($category->childCategory)) cutom-parent @endif {{ setActiveCategory($category->slug) }}">{{$category->name}}</a>
+                                    @if (count($category->childCategory))
+                                    <span class="button-view  fa fa-plus-square-o"></span>
+                                    <ul style="display: block;">
+                                    @foreach ($category->childCategories as $subCat)
+                                    <li><a href="{{route('category.index',['category'=>$subCat->slug])}}">{{$subCat->name}}</a></li>
+                                    @endforeach
+
+
                 					</ul>
+                                    @endif
+
                 				</li>
-                				<li class="hadchild"><a class="cutom-parent" href="category.html">Electronics</a>   <span class="button-view  fa fa-plus-square-o"></span>
-                					<ul style="display: none;">
-                						<li><a href="category.html">Cycling</a></li>
-                						<li><a href="category.html">Running</a></li>
-                						<li><a href="category.html">Swimming</a></li>
-                						<li><a href="category.html">Football</a></li>
-                						<li><a href="category.html">Golf</a></li>
-                						<li><a href="category.html">Windsurfing</a></li>
-                					</ul>
-                				</li>
-                				<li class="hadchild"><a href="category.html" class="cutom-parent">Shoes</a>   <span class="button-view  fa fa-plus-square-o"></span>
-                					<ul style="display: none;">
-                						<li><a href="category.html">Sub Categories</a></li>
-                						<li><a href="category.html">Sub Categories</a></li>
-                						<li><a href="category.html">Sub Categories</a></li>
-                						<li><a href="category.html">Sub Categories</a></li>
-                						<li><a href="category.html">Sub Categories</a></li>
-                					</ul>
-                				</li>
-                				<li class="hadchild"><a href="category.html" class="cutom-parent">Watches</a>  <span class="button-view  fa fa-plus-square-o"></span>
-                					<ul style="display: none;">
-                						<li><a href="category.html">Men's Watches</a></li>
-                						<li><a href="category.html">Women's Watches</a></li>
-                						<li><a href="category.html">Kids' Watches</a></li>
-                						<li><a href="category.html">Accessories</a></li>
-                					</ul>
-                				</li>
-                				<li class="hadchild"><a href="category.html" class="cutom-parent">Jewellery</a>    <span class="button-view  fa fa-plus-square-o"></span>
-                					<ul style="display: none;">
-                						<li><a href="category.html">Sub Categories</a></li>
-                						<li><a href="category.html">Sub Categories</a></li>
-                						<li><a href="category.html">Sub Categories</a></li>
-                						<li><a href="category.html">Sub Categories</a></li>
-                						<li><a href="category.html">Sub Categories</a></li>
-                					</ul>
-                				</li>
-                				<li class=""><a href="category.html" class="cutom-parent">Health &amp; Beauty</a>  <span class="dcjq-icon"></span></li>
-                				<li class=""><a href="category.html" class="cutom-parent">Kids &amp; Babies</a>    <span class="dcjq-icon"></span></li>
-                				<li class=""><a href="category.html" class="cutom-parent">Sports</a>  <span class="dcjq-icon"></span></li>
-                				<li class=""><a href="category.html" class="cutom-parent">Home &amp; Garden</a><span class="dcjq-icon"></span></li>
-                				<li class=""><a href="category.html" class="cutom-parent">Wines &amp; Spirits</a>  <span class="dcjq-icon"></span></li>
+                                @endforeach
                 			</ul>
                 		</div>
 
 
                 	</div>
-                </div>
-            	<div class="module product-simple">
-                    <h3 class="modtitle">
-                        <span>Latest products</span>
-                    </h3>
-                    <div class="modcontent">
-                        <div class="extraslider" >
-                            <!-- Begin extraslider-inner -->
-                            <div class=" extraslider-inner">
-                                <div class="item ">
-                                    <div class="product-layout item-inner style1 ">
-                                        <div class="item-image">
-                                            <div class="item-img-info">
-                                                <a href="#" target="_self" title="Mandouille short ">
-                                                    <img src="image/catalog/demo/product/80/8.jpg" alt="Mandouille short">
-                                                    </a>
-                                            </div>
-
-                                        </div>
-                                        <div class="item-info">
-                                            <div class="item-title">
-                                                <a href="#" target="_self" title="Mandouille short">Mandouille short </a>
-                                            </div>
-                                            <div class="rating">
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                            </div>
-                                            <div class="content_price price">
-                                                <span class="price-new product-price">$55.00 </span>&nbsp;&nbsp;
-
-                                                <span class="price-old">$76.00 </span>&nbsp;
-
-                                            </div>
-                                        </div>
-                                        <!-- End item-info -->
-                                        <!-- End item-wrap-inner -->
-                                    </div>
-                                    <!-- End item-wrap -->
-                                    <div class="product-layout item-inner style1 ">
-                                        <div class="item-image">
-                                            <div class="item-img-info">
-                                                <a href="#" target="_self" title="Xancetta bresao ">
-                                                        <img src="image/catalog/demo/product/80/7.jpg" alt="Xancetta bresao">
-                                                        </a>
-                                            </div>
-
-                                        </div>
-                                        <div class="item-info">
-                                            <div class="item-title">
-                                                <a href="#" target="_self" title="Xancetta bresao">
-                                                            Xancetta bresao
-                                                        </a>
-                                            </div>
-                                            <div class="rating">
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                            </div>
-                                            <div class="content_price price">
-                                                <span class="price-new product-price">$80.00 </span>&nbsp;&nbsp;
-
-                                                <span class="price-old">$89.00 </span>&nbsp;
-
-
-
-                                            </div>
-                                        </div>
-                                        <!-- End item-info -->
-                                        <!-- End item-wrap-inner -->
-                                    </div>
-                                    <!-- End item-wrap -->
-                                    <div class="product-layout item-inner style1 ">
-                                        <div class="item-image">
-                                            <div class="item-img-info">
-                                                <a href="#" target="_self" title="Sausage cowbee ">
-                                                            <img src="image/catalog/demo/product/80/6.jpg" alt="Sausage cowbee">
-                                                            </a>
-                                            </div>
-
-                                        </div>
-                                        <div class="item-info">
-                                            <div class="item-title">
-                                                <a href="#" target="_self" title="Sausage cowbee">
-                                                            Sausage cowbee
-                                                        </a>
-                                            </div>
-                                            <div class="rating">
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                            </div>
-
-                                            <div class="content_price price">
-                                                <span class="price product-price">
-                                                                $66.00
-                                                            </span>
-                                            </div>
-                                        </div>
-                                        <!-- End item-info -->
-                                        <!-- End item-wrap-inner -->
-                                    </div>
-                                    <!-- End item-wrap -->
-                                    <div class="product-layout item-inner style1 ">
-                                        <div class="item-image">
-                                            <div class="item-img-info">
-                                                <a href="#" target="_self" title="Chicken swinesha ">
-                                                <img src="image/catalog/demo/product/80/5.jpg" alt="Chicken swinesha">
-                                                </a>
-                                            </div>
-
-                                        </div>
-                                        <div class="item-info">
-                                            <div class="item-title">
-                                                <a href="#" target="_self" title="Chicken swinesha">
-                                                            Chicken swinesha
-                                                        </a>
-                                            </div>
-                                             <div class="rating">
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
-                                            </div>
-                                            <div class="content_price price">
-                                                <span class="price-new product-price">$45.00 </span>&nbsp;&nbsp;
-
-                                                <span class="price-old">$56.00 </span>&nbsp;
-
-
-
-                                            </div>
-                                        </div>
-                                        <!-- End item-info -->
-                                        <!-- End item-wrap-inner -->
-                                    </div>
-                                    <!-- End item-wrap -->
-                                </div>
-
-                            </div>
-                            <!--End extraslider-inner -->
-                        </div>
-                    </div>
-                </div>
-                <div class="module banner-left hidden-xs ">
-                	<div class="banner-sidebar banners">
-                      <div>
-                        <a title="Banner Image" href="#">
-                          <img src="image/catalog/banners/banner-sidebar.jpg" alt="Banner Image">
-                        </a>
-                      </div>
-                    </div>
                 </div>
             </aside>
             <!--Left Part End -->
@@ -302,13 +109,13 @@
 								<div class="product_page_price price" itemprop="offerDetails" itemscope="" itemtype="http://data-vocabulary.org/Offer">
 									<span class="price-new" itemprop="price">{{ $product->presentPrice() }}</span>
 								</div>
-								<div class="stock"><span>Availability:</span> <span class="status-stock">In Stock</span></div>
+                            <div class="stock"><span>Availability:</span> <span class="status-stock">{{ $stocklevel }}</span></div>
 							</div>
 
 
 
 							<div id="product">
-
+                                @if ($product->quantity>0)
                                 <form action="{{ route('cart.store') }}" method="post">
                                     @csrf
 								<div class="form-group box-info-product">
@@ -321,7 +128,8 @@
 											<span class="input-group-addon product_quantity_down">−</span>
 											<span class="input-group-addon product_quantity_up">+</span>
 										</div>
-									</div>
+                                    </div>
+
 									<div class="cart">
                                         <input type="hidden" name="id" value="{{ $product->id }}">
                                             <input type="hidden" name="name" value="{{ $product->name }}">
@@ -329,10 +137,12 @@
                                             <input type="submit" data-toggle="tooltip" title="" value="Add to Cart" data-loading-text="Loading..." id="button-cart" class="btn btn-mega btn-lg" onclick="cart.add('42', '1');" data-original-title="Add to Cart">
 
 
-									</div>
+                                    </div>
+
 
                                 </div>
                             </form>
+                            @endif
 
 							</div>
 
@@ -345,105 +155,10 @@
 					<div class="tabsslider  vertical-tabs col-xs-12">
 						<ul class="nav nav-tabs col-lg-2 col-sm-3">
 							<li class="active"><a data-toggle="tab" href="#tab-1">Description</a></li>
-							<li class="item_nonactive"><a data-toggle="tab" href="#tab-review">Reviews (1)</a></li>
-							<li class="item_nonactive"><a data-toggle="tab" href="#tab-4">Tags</a></li>
-							<li class="item_nonactive"><a data-toggle="tab" href="#tab-5">Custom Tab</a></li>
 						</ul>
 						<div class="tab-content col-lg-10 col-sm-9 col-xs-12">
 							<div id="tab-1" class="tab-pane fade active in">
 								{{!! $product->description !!}}
-							</div>
-							<div id="tab-review" class="tab-pane fade">
-								<form>
-									<div id="review">
-										<table class="table table-striped table-bordered">
-											<tbody>
-												<tr>
-													<td style="width: 50%;"><strong>Super Administrator</strong></td>
-													<td class="text-right">29/07/2015</td>
-												</tr>
-												<tr>
-													<td colspan="2">
-														<p>Best this product opencart</p>
-														<div class="ratings">
-															<div class="rating-box">
-																<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-																<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-																<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-																<span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-																<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-															</div>
-														</div>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-										<div class="text-right"></div>
-									</div>
-									<h2 id="review-title">Write a review</h2>
-									<div class="contacts-form">
-										<div class="form-group"> <span class="icon icon-user"></span>
-											<input type="text" name="name" class="form-control" value="Your Name" onblur="if (this.value == '') {this.value = 'Your Name';}" onfocus="if(this.value == 'Your Name') {this.value = '';}">
-										</div>
-										<div class="form-group"> <span class="icon icon-bubbles-2"></span>
-											<textarea class="form-control" name="text" onblur="if (this.value == '') {this.value = 'Your Review';}" onfocus="if(this.value == 'Your Review') {this.value = '';}">Your Review</textarea>
-										</div>
-										<span style="font-size: 11px;"><span class="text-danger">Note:</span>						HTML is not translated!</span>
-
-										<div class="form-group">
-										 <b>Rating</b> <span>Bad</span>&nbsp;
-										<input type="radio" name="rating" value="1"> &nbsp;
-										<input type="radio" name="rating"
-										value="2"> &nbsp;
-										<input type="radio" name="rating"
-										value="3"> &nbsp;
-										<input type="radio" name="rating"
-										value="4"> &nbsp;
-										<input type="radio" name="rating"
-										value="5"> &nbsp;<span>Good</span>
-
-										</div>
-										<div class="buttons clearfix"><a id="button-review" class="btn buttonGray">Continue</a></div>
-									</div>
-								</form>
-							</div>
-							<div id="tab-4" class="tab-pane fade">
-								<a href="#">Monitor</a>,
-								<a href="#">Apple</a>
-							</div>
-							<div id="tab-5" class="tab-pane fade">
-								<h3 class="custom-color">Take a trivial example which of us ever undertakes</h3>
-								<p>Lorem ipsum dolor sit amet, consetetur
-									sadipscing elitr, sed diam nonumy eirmod
-									tempor invidunt ut labore et dolore
-									magna aliquyam erat, sed diam voluptua.
-									At vero eos et accusam et justo duo
-									dolores et ea rebum. Stet clita kasd
-									gubergren, no sea takimata sanctus est
-									Lorem ipsum dolor sit amet. Lorem ipsum
-									dolor sit amet, consetetur sadipscing
-									elitr, sed diam nonumy eirmod tempor
-									invidunt ut labore et dolore magna aliquyam
-									erat, sed diam voluptua. </p>
-								<p>At vero eos et accusam et justo duo dolores
-									et ea rebum. Stet clita kasd gubergren,
-									no sea takimata sanctus est Lorem ipsum
-									dolor sit amet. Lorem ipsum dolor sit
-									amet, consetetur sadipscing elitr.</p>
-									<ul class="marker-simple-list two-columns">
-						<li>Nam liberempore</li>
-						<li>Cumsoluta nobisest</li>
-						<li>Eligendptio cumque</li>
-						<li>Nam liberempore</li>
-						<li>Cumsoluta nobisest</li>
-						<li>Eligendptio cumque</li>
-						</ul>
-								<p>Sed diam nonumy eirmod tempor invidunt
-									ut labore et dolore magna aliquyam erat,
-									sed diam voluptua. At vero eos et accusam
-									et justo duo dolores et ea rebum. Stet
-									clita kasd gubergren, no sea takimata
-									sanctus est Lorem ipsum dolor sit amet.</p>
 							</div>
 						</div>
 					</div>

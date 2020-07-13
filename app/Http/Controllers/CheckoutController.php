@@ -10,6 +10,7 @@ use App\Product;
 use App\Mail\OrderPlaced;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\CheckoutRequest;
+use Illuminate\Support\Facades\Http;
 
 class CheckoutController extends Controller
 {
@@ -47,10 +48,54 @@ class CheckoutController extends Controller
      */
     public function store(CheckoutRequest $request)
     {
-        $error='';
+        if($this->productsAreNoLongerAvailable()){
+
+            return back()->withErrors('Sorry! One of the items in your cart is no longer avialble.');
+        }
+
         $order = $this->addToOrdersTables($request,null);
-        Mail::queue(new OrderPlaced($order));
+        dd('test');
+        $returnUrl = url("/confirm/{$order->id}");
+        dd($returnUrl);
+        $failUrl = "";
+        $testUrl = "http://localhost:65510/bank/register.php.php";
+        $url = "https://test.satim.dz/payment/rest/register.do";
+
+        $data = [
+            'currency' => '012',
+            'amount' => Cart::total(),
+            'orderNumber' => $order->id,
+            'language' => 'fr',
+            'userName' => 'newtech2018',
+            'password' => 'satim120',
+            'returnUrl' => $returnUrl,
+            'failUrl' => $failUrl,
+            'jsonParams' => [
+                'force_terminal_id' => 'E021000004',
+                'udf1' => '2018105301346',
+                'udf5' => 'ggsf85s42524s5uhgsf'
+            ]
+        ];
+        $response = Http::get($testUrl,$data);
+        if($response->successful()){
+            $jsonResponse = $response->json();
+            dd($jsonResponse);
+            if($jsonResponse['errorCode'] == "0"){
+                $order->transation_code = $jsonResponse['orderId'];
+                $ordre->save();
+            }else{
+                $order->error = $jsonResponse['errorMessage'];
+                $order->save();
+                return back()->withErrors('Desole i y avai une error avec le system de payment.');
+            }
+        }
+
+
+        $this->decreaseQuantities();
+        //Mail::queue(new OrderPlaced($order));
         Cart::destroy();
+        return Redirect::to($jsonResponse['formUrl']);
+
     }
 
     protected function addToOrdersTables($request, $error)
@@ -71,6 +116,8 @@ class CheckoutController extends Controller
             'transation_date'=> \Carbon\Carbon::now(),
             'error' => $error,
         ]);
+
+
 
         // Insert into order_product table
         foreach (Cart::all() as $item) {
@@ -124,7 +171,7 @@ class CheckoutController extends Controller
      */
     public function edit($id)
     {
-        //
+        dd($id);
     }
 
     /**

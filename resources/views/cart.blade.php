@@ -59,7 +59,7 @@
                                         class="form-control" />
                                     <span class="input-group-btn">
                                         <button type="submit" data-toggle="tooltip" title="Update"
-                                            class="btn btn-primary quantity-button" data-id="{{$item->__raw_id}}"><i
+                                    class="btn btn-primary quantity-button" data-id="{{$item->__raw_id}}" data-productQuantity="{{ $item->product->quanity }}"><i
                                                 class="fa fa-clone"></i></button>
                                         <form action="{{ route('cart.destroy', $item->__raw_id) }}" class="inline"
                                             method="post">
@@ -126,9 +126,10 @@
         Array.from(classname).forEach(function (element) {
             element.addEventListener('click', function () {
                 const id = element.getAttribute('data-id')
-                const productQuantity = this.parentNode.previousSibling.previousSibling.value
+                const productQuantity = element.getAttribute('data-productQuantity')
+                const quantity = this.parentNode.previousSibling.previousSibling.value
                 axios.patch(`/cart/${id}`, {
-                    quantity: productQuantity,
+                    quantity: quantity,
                     productQuantity: productQuantity
                 })
                 .then(function (response) {

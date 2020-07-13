@@ -56,7 +56,7 @@
                                 @if (auth()->user())
                                 <input type="email" class="form-control" id="input-payment-email" placeholder="E-Mail" value="{{auth()->user()->email}}" name="email" readonly>
                                 @else
-                                <input type="email" class="form-control" id="input-payment-email" placeholder="E-Mail" value="{{old('email')}}" name="email" readonly>
+                                <input type="email" class="form-control" id="input-payment-email" placeholder="E-Mail" value="{{old('email')}}" name="email">
                                 @endif
 
 							  </div>

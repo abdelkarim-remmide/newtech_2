@@ -157,14 +157,16 @@
 						  <h4 class="panel-title"><i class="fa fa-pencil"></i> Add Comments About Your Order</h4>
 						</div>
 						  <div class="panel-body">
-							<textarea rows="4" class="form-control" id="confirm_comment" name="comments"></textarea>
-							<br>
 							<label class="control-label" for="confirm_agree">
-							  <input type="checkbox" checked="checked" value="1" required="" class="validate required" id="confirm_agree" name="confirm agree">
-							  <span>I have read and agree to the <a class="agree" href="#"><b>Terms &amp; Conditions</b></a></span> </label>
+							  <input type="checkbox" value="1" required="" class="validate required" id="confirm_agree" name="confirm agree">
+                              <span>J'accept les <a class="agree" href="#"><b>
+                                Conditions d'utilisation</b></a></span> </label>
+                                <br>
+                              <label><div class="g-recaptcha" data-sitekey="6Ldd-rAZAAAAAJHQGrVG15lTxouQV5JJy2bFcBWZ"></div></label>
 							<div class="buttons">
 							  <div class="pull-right">
-								<input type="submit" class="btn btn-primary" id="button-confirm" value="Confirm Order">
+                                <button type="button" class="btn btn-primary" id="make-payment" ><img src="/image/cib.png" height="25" width="25" >
+                                    Valider</button>
 							  </div>
 							</div>
 						  </div>
@@ -187,6 +189,8 @@
     </form>
     @endsection
     @section('extra-js')
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
         <script>
             window.onload = function() {
                 var form = document.querySelector("main-form");
@@ -194,7 +198,15 @@
             }
 
             function submitted(event) {
-                document.getElementById('button-confirm').disabled=true
+                event.preventDefault()
+                document.getElementById('make-payment').disabled=true
+                var response = grecaptcha.getResponse();
+
+                if(response.length == 0)
+                    console.log('recaptcha not valid')
+                else{
+                    event.submit()
+                }
             }
             function delete() {
                 document.getElementById('delete-form').submit()

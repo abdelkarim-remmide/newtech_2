@@ -8385,3 +8385,19 @@ footer .copyright a {
     width: 100%;
     height: 170px;
 }
+
+.print{
+    display: none !important;
+}
+
+@media print
+{
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+
+    .print, .print *{
+        display: block !important;
+    }
+}

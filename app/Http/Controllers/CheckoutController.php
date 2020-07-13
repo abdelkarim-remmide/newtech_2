@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Cart;
+use PDF;
 use App\Order;
 use App\OrderProduct;
 use App\Product;
@@ -53,49 +54,62 @@ class CheckoutController extends Controller
             return back()->withErrors('Sorry! One of the items in your cart is no longer avialble.');
         }
 
-        $order = $this->addToOrdersTables($request,null);
-        dd('test');
-        $returnUrl = url("/confirm/{$order->id}");
-        dd($returnUrl);
-        $failUrl = "";
-        $testUrl = "http://localhost:65510/bank/register.php.php";
-        $url = "https://test.satim.dz/payment/rest/register.do";
 
-        $data = [
+
+        $order = $this->addToOrdersTables($request,null);
+
+
+        $url = "https://test.satim.dz/payment/rest/register.do";
+        $response = Http::post("https://40704a77-8413-4455-a205-cb872b330713.mock.pstmn.io/register",[
             'currency' => '012',
             'amount' => Cart::total(),
             'orderNumber' => $order->id,
             'language' => 'fr',
             'userName' => 'newtech2018',
             'password' => 'satim120',
-            'returnUrl' => $returnUrl,
-            'failUrl' => $failUrl,
+            'returnUrl' => url("/confirm/{$order->id}"),
+            'failUrl' => "",
             'jsonParams' => [
                 'force_terminal_id' => 'E021000004',
                 'udf1' => '2018105301346',
                 'udf5' => 'ggsf85s42524s5uhgsf'
             ]
-        ];
-        $response = Http::get($testUrl,$data);
+        ]);
+        $data = $response->json();
         if($response->successful()){
-            $jsonResponse = $response->json();
-            dd($jsonResponse);
-            if($jsonResponse['errorCode'] == "0"){
-                $order->transation_code = $jsonResponse['orderId'];
-                $ordre->save();
+            if($data['errorCode']=="0"){
+                $order->transation_code = $data['orderId'];
+                $order->save();
+                $formUrl = $data['formUrl'];
+                $this->decreaseQuantities();
+                //
+                Cart::destroy();
+                return redirect($formUrl);
             }else{
-                $order->error = $jsonResponse['errorMessage'];
+                $order->error = $data['errorMessage'];
                 $order->save();
                 return back()->withErrors('Desole i y avai une error avec le system de payment.');
             }
+        }else{
+            $order->error = "connection error";
+            $order->save();
+            return back()->withErrors('Desole i y avai une error avec le system de payment.');
         }
+    }
 
+    public function sendEmail($id)
+    {
+        $order = Order::where('id',$id)->firstOrFail();
+        Mail::queue(new OrderPlaced($order));
+        return view("email-send");
+    }
 
-        $this->decreaseQuantities();
-        //Mail::queue(new OrderPlaced($order));
-        Cart::destroy();
-        return Redirect::to($jsonResponse['formUrl']);
+    public function downloadPDF($id)
+    {
 
+        $order = Order::where('id',$id)->firstOrFail();
+        $pdf = PDF::loadView('pdf', compact(['order']));
+        return $pdf->download('invoice.pdf');
     }
 
     protected function addToOrdersTables($request, $error)
@@ -171,7 +185,57 @@ class CheckoutController extends Controller
      */
     public function edit($id)
     {
-        dd($id);
+        $order = Order::where('id',$id)->firstOrFail();
+
+        $url = "https://test.satim.dz/payment/rest/register.do";
+        $response = Http::post("https://40704a77-8413-4455-a205-cb872b330713.mock.pstmn.io/confirm",[
+            'orderId' => $order->transation_code,
+            'language' => 'fr',
+            'userName' => 'newtech2018',
+            'password' => 'satim120',
+        ]);
+        $data = $response->json();
+        if($data['errorCode']=="0" && $data['params']['respCode']=="00" && $data['orderStatus']=="2"){
+            $order->order_status = 'C';
+            $order->save();
+            $products = $order->products;
+            return view('order-status')->with([
+                'data'=>$data,
+                'order'=>$order,
+                'products'=>$products
+            ]);
+        }elseif ($data['errorCode']=="0" && $data['params']['respCode']=="00" && $data['orderStatus']=="3"){
+            $order->order_status = 'R';
+            $order->save();
+            return view('order-rejeter');
+        }else{
+            $order->order_status = 'F';
+            $order->save();
+            return view('order-fail')->with('data');
+        }
+    }
+
+    public function refund($id)
+    {
+        $order = Order::where('id',$id)->firstOrFail();
+
+        $url = "https://test.satim.dz/payment/rest/refund.do";
+        $response = Http::post("https://40704a77-8413-4455-a205-cb872b330713.mock.pstmn.io/refund",[
+            'orderId' => $order->transation_code,
+            'language' => 'fr',
+            'userName' => 'newtech2018',
+            'password' => 'satim120',
+        ]);
+        $data = $response->json();
+        if($data['errorCode']=="0"){
+            $order->order_status = 'D';
+            $order->save();
+            return view('refund-success');
+        }else{
+            $order->error = $data['errorMessage'];
+            $order->save();
+            return view('refund-fail')->with('data');
+        }
     }
 
     /**

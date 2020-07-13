@@ -10,13 +10,13 @@
         <div class="module sohomepage-slider ">
             <div class="yt-content-slider"  data-rtl="yes" data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="0" data-items_column0="1" data-items_column1="1" data-items_column2="1"  data-items_column3="1" data-items_column4="1" data-arrows="no" data-pagination="yes" data-lazyload="yes" data-loop="no" data-hoverpause="yes">
                 <div class="yt-content-slide">
-                    <a href="#"><img src="image/catalog/slideshow/home2/slide-1.jpg" alt="slider1" class="img-responsive"></a>
+                    <a href="#"><img src="/image/catalog/slideshow/1.jpg" alt="slider1" class="img-responsive"></a>
                 </div>
                 <div class="yt-content-slide">
-                    <a href="#"><img src="image/catalog/slideshow/home2/slide-2.jpg" alt="slider2" class="img-responsive"></a>
+                    <a href="#"><img src="/image/catalog/slideshow/2.jpg" alt="slider2" class="img-responsive"></a>
                 </div>
                 <div class="yt-content-slide">
-                    <a href="#"><img src="image/catalog/slideshow/home2/slide-3.jpg" alt="slider3" class="img-responsive"></a>
+                    <a href="#"><img src="/image/catalog/slideshow/3.png" alt="slider3" class="img-responsive"></a>
                 </div>
             </div>
 
@@ -76,84 +76,55 @@
                         <div class="yt-content-slider" data-rtl="yes" data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="30" data-items_column0="7" data-items_column1="4" data-items_column2="4"  data-items_column3="2" data-items_column4="1" data-arrows="yes" data-pagination="no" data-lazyload="yes" data-loop="no" data-hoverpause="yes">
                             <div class="content-box">
                                 <div class="image-cat">
-                                    <a href="#" title="Towels Cloud" target="_self">
-                                        <img src="image/catalog/demo/category/cate1.jpg" title="Towels Cloud" alt="Towels Cloud" />
+                                    <a href="{{route('category.index',['category'=>'camera'])}}" title="Camera" target="_self">
+                                        <img src="/image/catalog/demo/category/cate1.jpg" title="Camera" alt="Camera" />
                                     </a>
                                 </div>
                                 <div class="cat-title">
-                                  <a href="#" title="Towels Cloud " target="_self">Towels Cloud</a>
+                                  <a href="{{route('category.index',['category'=>'camera'])}}" title="Camera " target="_self">Camera</a>
                                 </div>
                             </div>
                             <div class="content-box">
                                 <div class="image-cat">
-                                    <a href="#" title="Smartphone" target="_self">
-                                        <img src="image/catalog/demo/category/cate2.jpg" title="Smartphone" alt="Smartphone" />
+                                    <a href="{{route('category.index',['category'=>'mobile-basic'])}}" title="Mobile Basic" target="_self">
+                                        <img src="/image/catalog/demo/category/cate2.jpg" title="Mobile Basic" alt="Mobile Basic" />
                                     </a>
                                 </div>
                                 <div class="cat-title">
-                                  <a href="#" title="Smartphone" target="_self">Smartphone</a>
+                                  <a href="{{route('category.index',['category'=>'mobile-basic'])}}" title="Mobile Basic" target="_self">Mobile Basic</a>
                                 </div>
                             </div>
                             <div class="content-box">
                                 <div class="image-cat">
-                                    <a href="#" title="Watches" target="_self">
-                                        <img src="image/catalog/demo/category/cate3.jpg" title="Watches" alt="Watches" />
+                                    <a href="{{route('category.index',['category'=>'smartphone'])}}" title="Smartphone" target="_self">
+                                        <img src="/image/catalog/demo/category/cate3.jpg" title="Smartphone" alt="Smartphone" />
                                     </a>
                                 </div>
                                 <div class="cat-title">
-                                  <a href="#" title="Watches" target="_self">Watches</a>
+                                  <a href="{{route('category.index',['category'=>'smartphone'])}}" title="Smartphone" target="_self">Smartphone</a>
                                 </div>
                             </div>
                             <div class="content-box">
                                 <div class="image-cat">
-                                    <a href="#" title="Electronics" target="_self">
-                                        <img src="image/catalog/demo/category/cate1.jpg" title="Electronics" alt="Electronics" />
+                                    <a href="{{route('category.index',['category'=>'tablette'])}}" title="Tablette" target="_self">
+                                        <img src="/image/catalog/demo/category/cate4.jpg" title="Tablette" alt="Tablette" />
                                     </a>
                                 </div>
                                 <div class="cat-title">
-                                  <a href="#" title="Electronics" target="_self">Electronics</a>
+                                  <a href="{{route('category.index',['category'=>'tablette'])}}" title="Tablette" target="_self">Tablette</a>
                                 </div>
                             </div>
                             <div class="content-box">
                                 <div class="image-cat">
-                                    <a href="#" title="Furnitures" target="_self">
-                                        <img src="image/catalog/demo/category/cate4.jpg" title="Furnitures" alt="Furnitures" />
+                                    <a href="{{route('category.index',['category'=>'accessoire'])}}" title="Accessories" target="_self">
+                                        <img src="/image/catalog/demo/category/cate5.jpg" title="Accessories" alt="Accessories" />
                                     </a>
                                 </div>
                                 <div class="cat-title">
-                                  <a href="#" title="Furnitures" target="_self">Furnitures</a>
+                                  <a href="{{route('category.index',['category'=>'accessoire'])}}" title="Accessories" target="_self">Accessories</a>
                                 </div>
                             </div>
-                            <div class="content-box">
-                                <div class="image-cat">
-                                    <a href="#" title="Collections" target="_self">
-                                        <img src="image/catalog/demo/category/cate5.jpg" title="Collections" alt="Collections" />
-                                    </a>
-                                </div>
-                                <div class="cat-title">
-                                  <a href="#" title="Collections" target="_self">Collections</a>
-                                </div>
-                            </div>
-                            <div class="content-box">
-                                <div class="image-cat">
-                                    <a href="#" title="Fashion" target="_self">
-                                        <img src="image/catalog/demo/category/cate6.jpg" title="Fashion" alt="Fashion" />
-                                    </a>
-                                </div>
-                                <div class="cat-title">
-                                  <a href="#" title="Fashion" target="_self">Fashion</a>
-                                </div>
-                            </div>
-                            <div class="content-box">
-                                <div class="image-cat">
-                                    <a href="#" title="Accessories" target="_self">
-                                        <img src="image/catalog/demo/category/cate7.jpg" title="Accessories" alt="Accessories" />
-                                    </a>
-                                </div>
-                                <div class="cat-title">
-                                  <a href="#" title="Accessories" target="_self">Accessories</a>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -183,8 +154,6 @@
                                 <span class="ltabs-tab-arrow">▼</span>
                                 <ul class="ltabs-tabs cf list-sub-cat font-title">
                                     <li class="ltabs-tab tab-sel" data-category-id="61" data-active-content=".items-category-61"><span class="ltabs-tab-label">Best sellers</span></li>
-                                    <li class="ltabs-tab  " data-category-id="62" data-active-content=".items-category-62">   <span class="ltabs-tab-label">New Arrivals</span></li>
-                                    <li class="ltabs-tab  " data-category-id="63" data-active-content=".items-category-63">   <span class="ltabs-tab-label">Most Rating</span></li>
                                 </ul>
                             </div>
                             <!-- End Tabs-->
@@ -241,14 +210,7 @@
 
                             </div>
 
-                            <div class="ltabs-items items-category-62 grid" data-total="10">
-                                <div class="ltabs-loading"></div>
 
-                            </div>
-
-                            <div class="ltabs-items  items-category-63 grid" data-total="10">
-                                <div class="ltabs-loading"></div>
-                            </div>
 
 
                             <!--End Items-->
@@ -264,47 +226,37 @@
                 <div class="yt-content-slider contentslider" data-rtl="no" data-loop="yes" data-autoplay="no" data-autoheight="no" data-autowidth="no" data-delay="4" data-speed="0.6" data-margin="0" data-items_column0="8" data-items_column1="6" data-items_column2="3" data-items_column3="2" data-items_column4="1" data-arrows="yes" data-pagination="no" data-lazyload="yes" data-hoverpause="yes">
                     <div class="item">
                         <a href="#">
-                            <img src="image/catalog/brands/b1.png" alt="brand">
+                            <img src="/image/catalog/brands/1.png" alt="brand">
                         </a>
                     </div>
                     <div class="item">
                         <a href="#">
-                            <img src="image/catalog/brands/b2.png" alt="brand">
+                            <img src="/image/catalog/brands/2.png" alt="brand">
                         </a>
                     </div>
                     <div class="item">
                         <a href="#">
-                            <img src="image/catalog/brands/b3.png" alt="brand">
+                            <img src="/image/catalog/brands/3.png" alt="brand">
                         </a>
                     </div>
                     <div class="item">
                         <a href="#">
-                            <img src="image/catalog/brands/b4.png" alt="brand">
+                            <img src="/image/catalog/brands/4.png" alt="brand">
                         </a>
                     </div>
                     <div class="item">
                         <a href="#">
-                            <img src="image/catalog/brands/b5.png" alt="brand">
+                            <img src="/image/catalog/brands/5.png" alt="brand">
                         </a>
                     </div>
                     <div class="item">
                         <a href="#">
-                            <img src="image/catalog/brands/b6.png" alt="brand">
+                            <img src="/image/catalog/brands/6.png" alt="brand">
                         </a>
                     </div>
                     <div class="item">
                         <a href="#">
-                            <img src="image/catalog/brands/b4.png" alt="brand">
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a href="#">
-                            <img src="image/catalog/brands/b5.png" alt="brand">
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a href="#">
-                            <img src="image/catalog/brands/b6.png" alt="brand">
+                            <img src="/image/catalog/brands/7.png" alt="brand">
                         </a>
                     </div>
                 </div>

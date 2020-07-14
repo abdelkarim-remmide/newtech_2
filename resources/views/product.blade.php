@@ -63,7 +63,6 @@
 							<div class="large-image  ">
 								<img itemprop="image" class="product-image-zoom" src="{{ productImage($product->image) }}" data-zoom-image="{{ productImage($product->image) }}" title="{{ $product->name }}" alt="{{ $product->name }}">
 							</div>
-							<a class="thumb-video pull-left" href="https://www.youtube.com/watch?v=HhabgvIIXik"><i class="fa fa-youtube-play"></i></a>
 
 							<div id="thumb-slider" class="yt-content-slider full_slider owl-drag" data-rtl="yes" data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="10" data-items_column0="4" data-items_column1="3" data-items_column2="4"  data-items_column3="1" data-items_column4="1" data-arrows="yes" data-pagination="no" data-lazyload="yes" data-loop="no" data-hoverpause="yes">
                                 <a data-index="0" class="img thumbnail " data-image="{{ productImage($product->image) }}" title="{{ $product->name }}">

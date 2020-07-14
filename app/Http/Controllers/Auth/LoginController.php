@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Category;
 
 class LoginController extends Controller
 {
@@ -48,7 +49,11 @@ class LoginController extends Controller
     {
         session()->put('previousUrl', url()->previous());
 
-        return view('auth.login');
+        $categories = Category::whereNull('parent_id')->get();
+
+        return view('auth.login')->with([
+            'categories'=>$categories
+        ]);
     }
 
     public function redirectTo()

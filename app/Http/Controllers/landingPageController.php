@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Product;
 use Illuminate\Http\Request;
+use App\Category;
+
 
 class landingPageController extends Controller
 {
@@ -14,7 +16,11 @@ class landingPageController extends Controller
     public function index()
     {
         $products = Product::inRandomOrder()->take(8)->get();
-        return view('index')->with('products',$products);
+        $categories = Category::whereNull('parent_id')->get();
+        return view('index')->with([
+            'products'=>$products,
+            'categories'=>$categories
+        ]);
     }
 
 

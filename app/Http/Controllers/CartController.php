@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Cart;
 use App\Product;
+use App\Category;
+
 
 class CartController extends Controller
 {
@@ -15,7 +17,11 @@ class CartController extends Controller
      */
     public function index()
     {
-        return view('cart');
+
+        $categories = Category::whereNull('parent_id')->get();
+        return view('cart')->with([
+            'categories'=>$categories
+        ]);
     }
 
     /**

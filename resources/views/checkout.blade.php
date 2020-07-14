@@ -165,7 +165,7 @@
                               <label><div class="g-recaptcha" data-sitekey="6Ldd-rAZAAAAAJHQGrVG15lTxouQV5JJy2bFcBWZ"></div></label>
 							<div class="buttons">
 							  <div class="pull-right">
-                                <button type="button" class="btn btn-primary" id="make-payment" ><img src="/image/cib.png" height="25" width="25" >
+                                <button type="submit" class="btn btn-primary" id="make-payment" ><img src="/image/cib.png" height="25" width="25" >
                                     Valider</button>
 							  </div>
 							</div>
@@ -198,15 +198,8 @@
             }
 
             function submitted(event) {
-                event.preventDefault()
                 document.getElementById('make-payment').disabled=true
-                var response = grecaptcha.getResponse();
 
-                if(response.length == 0)
-                    console.log('recaptcha not valid')
-                else{
-                    event.submit()
-                }
             }
             function delete() {
                 document.getElementById('delete-form').submit()

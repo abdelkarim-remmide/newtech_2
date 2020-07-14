@@ -133,7 +133,7 @@
             <div class="banners banners1">
                 <div class="banner">
                     <a href="#">
-                        <img src="image/catalog/banners/id2-banner1.jpg" alt="image">
+                        <img src="/image/catalog/banners/id2-banner1.jpg" alt="image">
                     </a>
                 </div>
             </div>
@@ -178,13 +178,6 @@
                                                         <button type="button" class="addToCart btn-button" title="Add to cart" onclick="cart.add('60 ');">  <i class="fa fa-shopping-basket"></i>
                                                             <span>Add to cart </span>
                                                         </button>
-                                                        <button type="button" class="wishlist btn-button" title="Add to Wish List" onclick="wishlist.add('60');"><i class="fa fa-heart"></i><span>Add to Wish List</span>
-                                                        </button>
-                                                        <button type="button" class="compare btn-button" title="Compare this Product " onclick="compare.add('60');"><i class="fa fa-refresh"></i><span>Compare this Product</span>
-                                                        </button>
-                                                        <!--quickview-->
-                                                        <a class="iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" data-fancybox-type="iframe"><i class="fa fa-eye"></i><span>Quick view</span></a>
-                                                        <!--end quickview-->
                                                     </div>
                                                 </div>
                                                 <div class="right-block">

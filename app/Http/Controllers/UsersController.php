@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
 
 class UsersController extends Controller
 {
@@ -55,7 +56,10 @@ class UsersController extends Controller
      */
     public function edit()
     {
-        return view('my-account');
+        $categories = Category::whereNull('parent_id')->get();
+        return view('my-account')->with([
+            'categories'=>$categories
+        ]);
     }
 
     /**

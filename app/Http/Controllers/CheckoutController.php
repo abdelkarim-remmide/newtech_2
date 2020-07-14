@@ -12,6 +12,7 @@ use App\Mail\OrderPlaced;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\CheckoutRequest;
 use Illuminate\Support\Facades\Http;
+use App\Category;
 
 class CheckoutController extends Controller
 {
@@ -22,13 +23,17 @@ class CheckoutController extends Controller
      */
     public function index()
     {
+
+        $categories = Category::whereNull('parent_id')->get();
         if (Cart::count()==0){
             return redirect()->route('category.index');
         }
         if (auth()->user() && request()->is('guestCheckout')) {
             return redirect()->route('checkout.index');
         }
-        return view('checkout');
+        return view('checkout')->with([
+            'categories'=>$categories
+        ]);
     }
 
     /**
@@ -187,6 +192,7 @@ class CheckoutController extends Controller
     {
         $order = Order::where('id',$id)->firstOrFail();
 
+        $categories = Category::whereNull('parent_id')->get();
         $url = "https://test.satim.dz/payment/rest/register.do";
         $response = Http::post("https://40704a77-8413-4455-a205-cb872b330713.mock.pstmn.io/confirm",[
             'orderId' => $order->transation_code,
@@ -202,16 +208,22 @@ class CheckoutController extends Controller
             return view('order-status')->with([
                 'data'=>$data,
                 'order'=>$order,
-                'products'=>$products
+                'products'=>$products,
+                'categories'=>$categories
             ]);
         }elseif ($data['errorCode']=="0" && $data['params']['respCode']=="00" && $data['orderStatus']=="3"){
             $order->order_status = 'R';
             $order->save();
-            return view('order-rejeter');
+            return view('order-rejeter')->with([
+                'categories'=>$categories
+            ]);
         }else{
             $order->order_status = 'F';
             $order->save();
-            return view('order-fail')->with('data');
+            return view('order-fail')->with([
+                'data'=>$data,
+                'categories'=>$categories
+            ]);
         }
     }
 
@@ -219,6 +231,7 @@ class CheckoutController extends Controller
     {
         $order = Order::where('id',$id)->firstOrFail();
 
+        $categories = Category::whereNull('parent_id')->get();
         $url = "https://test.satim.dz/payment/rest/refund.do";
         $response = Http::post("https://40704a77-8413-4455-a205-cb872b330713.mock.pstmn.io/refund",[
             'orderId' => $order->transation_code,
@@ -230,11 +243,16 @@ class CheckoutController extends Controller
         if($data['errorCode']=="0"){
             $order->order_status = 'D';
             $order->save();
-            return view('refund-success');
+            return view('refund-success')->with([
+                'categories'=>$categories
+            ]);
         }else{
             $order->error = $data['errorMessage'];
             $order->save();
-            return view('refund-fail')->with('data');
+            return view('refund-fail')->with([
+                'data'=>$data,
+                'categories'=>$categories
+            ]);
         }
     }
 

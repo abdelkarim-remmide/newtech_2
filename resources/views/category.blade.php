@@ -53,7 +53,7 @@
         					<div class="col-sm-12">
         						<div class="banners">
         							<div>
-        								<a  href="#"><img src="image/catalog/demo/category/img-cate.jpg" alt="img cate"><br></a>
+        								<a  href="#"><img src="image/catalog/demo/category/img-cate.jpg" style="height: 300px;width: 100%;" alt="img cate"><br></a>
         							</div>
         						</div>
 
@@ -118,18 +118,10 @@
                                             <img src="{{ productImage($product->image) }}" class="img-2 img-responsive" alt="image">
                                         </a>
                                     </div>
-                                    <div class="box-label"> <span class="label-product label-sale"> -16% </span></div>
                                     <div class="button-group so-quickview cartinfo--left">
                                         <button type="button" class="addToCart btn-button" title="Add to cart" onclick="cart.add('60 ');">  <i class="fa fa-shopping-basket"></i>
                                             <span>Add to cart </span>
                                         </button>
-                                        <button type="button" class="wishlist btn-button" title="Add to Wish List" onclick="wishlist.add('60');"><i class="fa fa-heart"></i><span>Add to Wish List</span>
-                                        </button>
-                                        <button type="button" class="compare btn-button" title="Compare this Product " onclick="compare.add('60');"><i class="fa fa-refresh"></i><span>Compare this Product</span>
-                                        </button>
-                                        <!--quickview-->
-                                        <a class="iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" data-fancybox-type="iframe"><i class="fa fa-eye"></i><span>Quick view</span></a>
-                                        <!--end quickview-->
                                     </div>
                                 </div>
                                 <div class="right-block">

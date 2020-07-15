@@ -6,7 +6,7 @@
 <div class="main-container container">
     <ul class="breadcrumb">
         <li><a href="#"><i class="fa fa-home"></i></a></li>
-        <li><a href="#">Shopping Cart</a></li>
+        <li><a href="#">Le panier</a></li>
     </ul>
     <div class="row">
 
@@ -30,16 +30,16 @@
     <div class="row">
         <!--Middle Part Start-->
         <div id="content" class="col-sm-12">
-            <h2 class="title">Shopping Cart</h2>
+            <h2 class="title">Le panier</h2>
             @if (Cart::count() > 0)
             <div class="table-responsive form-group">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <td class="text-center">Image</td>
-                            <td class="text-left">Product Name</td>
+                            <td class="text-left">Nom de produit</td>
                             <td class="text-left">Quantity</td>
-                            <td class="text-right">Unit Price</td>
+                            <td class="text-right">Prix de l'unity</td>
                             <td class="text-right">Total</td>
                         </tr>
                     </thead>
@@ -80,7 +80,7 @@
                 </table>
             </div>
             @else
-            <h3 class="text-center">No item in cart</h3>
+            <h3 class="text-center">Le panier est vide</h3>
             @endif
 
             <div class="row">
@@ -89,7 +89,7 @@
                         <tbody>
                             <tr>
                                 <td class="text-right">
-                                    <strong>Sub-Total:</strong>
+                                    <strong>Sous-Total:</strong>
                                 </td>
                                 <td class="text-right">{{presentPrice(Cart::total())}}</td>
                             </tr>
@@ -105,8 +105,8 @@
             </div>
 
             <div class="buttons">
-                <div class="pull-left"><a href="{{route('index')}}" class="btn btn-primary">Continue Shopping</a></div>
-                <div class="pull-right"><a href="{{route('checkout.index')}}" class="btn btn-primary">Checkout</a></div>
+                <div class="pull-left"><a href="{{route('index')}}" class="btn btn-primary">Continuer vos achats</a></div>
+                <div class="pull-right"><a href="{{route('checkout.index')}}" class="btn btn-primary">Check-out</a></div>
             </div>
         </div>
         <!--Middle Part End -->

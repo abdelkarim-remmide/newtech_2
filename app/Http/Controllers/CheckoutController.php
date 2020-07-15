@@ -84,6 +84,7 @@ class CheckoutController extends Controller
         if($response->successful()){
             if($data['errorCode']=="0"){
                 $order->transation_code = $data['orderId'];
+                $order->order_status = 'E';
                 $order->save();
                 $formUrl = $data['formUrl'];
                 $this->decreaseQuantities();
@@ -92,11 +93,13 @@ class CheckoutController extends Controller
                 return redirect($formUrl);
             }else{
                 $order->error = $data['errorMessage'];
+                $order->order_status = 'O';
                 $order->save();
                 return back()->withErrors('Desole i y avai une error avec le system de payment.');
             }
         }else{
             $order->error = "connection error";
+            $order->order_status = 'O';
             $order->save();
             return back()->withErrors('Desole i y avai une error avec le system de payment.');
         }
@@ -191,6 +194,9 @@ class CheckoutController extends Controller
     public function edit($id)
     {
         $order = Order::where('id',$id)->firstOrFail();
+        if(!$order->order_status == 'E'){
+
+        }
 
         $categories = Category::whereNull('parent_id')->get();
         $url = "https://test.satim.dz/payment/rest/register.do";
@@ -203,6 +209,8 @@ class CheckoutController extends Controller
         $data = $response->json();
         if($data['errorCode']=="0" && $data['params']['respCode']=="00" && $data['orderStatus']=="2"){
             $order->order_status = 'C';
+            $order->approvalCode = $data['approvalCode'];
+            $order->respCode = $data['params']['respCode'];
             $order->save();
             $products = $order->products;
             return view('order-status')->with([
@@ -213,12 +221,14 @@ class CheckoutController extends Controller
             ]);
         }elseif ($data['errorCode']=="0" && $data['params']['respCode']=="00" && $data['orderStatus']=="3"){
             $order->order_status = 'R';
+            $order->respCode = $data['params']['respCode'];
             $order->save();
             return view('order-rejeter')->with([
                 'categories'=>$categories
             ]);
         }else{
             $order->order_status = 'F';
+            $order->respCode = $data['params']['respCode'];
             $order->save();
             return view('order-fail')->with([
                 'data'=>$data,
@@ -230,7 +240,9 @@ class CheckoutController extends Controller
     public function refund($id)
     {
         $order = Order::where('id',$id)->firstOrFail();
+        if(!$order->order_status == 'C'){
 
+        }
         $categories = Category::whereNull('parent_id')->get();
         $url = "https://test.satim.dz/payment/rest/refund.do";
         $response = Http::post("https://40704a77-8413-4455-a205-cb872b330713.mock.pstmn.io/refund",[
@@ -247,8 +259,6 @@ class CheckoutController extends Controller
                 'categories'=>$categories
             ]);
         }else{
-            $order->error = $data['errorMessage'];
-            $order->save();
             return view('refund-fail')->with([
                 'data'=>$data,
                 'categories'=>$categories

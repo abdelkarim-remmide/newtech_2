@@ -34,12 +34,12 @@
                                 <br>
                                 <b>L'identifiant de la transaction:</b> {{ $order->transation_code }}
                                 <br>
-                                <b>Numero d'autorisation:</b> {{ $data['approvalCode'] }}
+                                <b>Numero d'autorisation:</b> {{ $order->approvalCode }}
                                 <br>
                             <b>Date et l'heure de la transaction:</b> {{ $order->transation_date }}</td>
                             <td style="width: 25%;" class="text-left"> <b>Mode de paiment:</b> Cart CIB
                                 <br>
-                                <b>Response Code {{$data['params']['respCode']}}</b>
+                                <b>Response Code {{$order->respCode}}</b>
                              </td>
                              <td style="width: 25%" class="text-center">
                              <img src="{{ asset('image/satim.png') }}" height="80" alt="" srcset="">

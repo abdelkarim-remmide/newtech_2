@@ -10,13 +10,13 @@
         <div class="module sohomepage-slider ">
             <div class="yt-content-slider"  data-rtl="yes" data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="0" data-items_column0="1" data-items_column1="1" data-items_column2="1"  data-items_column3="1" data-items_column4="1" data-arrows="no" data-pagination="yes" data-lazyload="yes" data-loop="no" data-hoverpause="yes">
                 <div class="yt-content-slide">
-                    <a href="#"><img src="/image/catalog/slideshow/1.jpg" alt="slider1" class="img-responsive"></a>
+                    <a href="#"><img src="{{asset('/image/catalog/slideshow/1.jpg')}}" alt="slider1" class="img-responsive"></a>
                 </div>
                 <div class="yt-content-slide">
-                    <a href="#"><img src="/image/catalog/slideshow/2.jpg" alt="slider2" class="img-responsive"></a>
+                    <a href="#"><img src="{{asset('/image/catalog/slideshow/2.jpg')}}" alt="slider2" class="img-responsive"></a>
                 </div>
                 <div class="yt-content-slide">
-                    <a href="#"><img src="/image/catalog/slideshow/3.png" alt="slider3" class="img-responsive"></a>
+                    <a href="#"><img src="{{asset('/image/catalog/slideshow/3.png')}}" alt="slider3" class="img-responsive"></a>
                 </div>
             </div>
 
@@ -77,7 +77,7 @@
                             <div class="content-box">
                                 <div class="image-cat">
                                     <a href="{{route('category.index',['category'=>'camera'])}}" title="Camera" target="_self">
-                                        <img src="/image/catalog/demo/category/cate1.jpg" title="Camera" alt="Camera" />
+                                        <img src="{{asset('/image/catalog/demo/category/cate1.jpg')}}" title="Camera" alt="Camera" />
                                     </a>
                                 </div>
                                 <div class="cat-title">
@@ -87,7 +87,7 @@
                             <div class="content-box">
                                 <div class="image-cat">
                                     <a href="{{route('category.index',['category'=>'mobile-basic'])}}" title="Mobile Basic" target="_self">
-                                        <img src="/image/catalog/demo/category/cate2.jpg" title="Mobile Basic" alt="Mobile Basic" />
+                                        <img src="{{asset('/image/catalog/demo/category/cate2.jpg')}}" title="Mobile Basic" alt="Mobile Basic" />
                                     </a>
                                 </div>
                                 <div class="cat-title">
@@ -97,7 +97,7 @@
                             <div class="content-box">
                                 <div class="image-cat">
                                     <a href="{{route('category.index',['category'=>'smartphone'])}}" title="Smartphone" target="_self">
-                                        <img src="/image/catalog/demo/category/cate3.jpg" title="Smartphone" alt="Smartphone" />
+                                        <img src="{{asset('/image/catalog/demo/category/cate3.jpg')}}" title="Smartphone" alt="Smartphone" />
                                     </a>
                                 </div>
                                 <div class="cat-title">
@@ -107,7 +107,7 @@
                             <div class="content-box">
                                 <div class="image-cat">
                                     <a href="{{route('category.index',['category'=>'tablette'])}}" title="Tablette" target="_self">
-                                        <img src="/image/catalog/demo/category/cate4.jpg" title="Tablette" alt="Tablette" />
+                                        <img src="{{asset('/image/catalog/demo/category/cate4.jpg')}}" title="Tablette" alt="Tablette" />
                                     </a>
                                 </div>
                                 <div class="cat-title">
@@ -117,7 +117,7 @@
                             <div class="content-box">
                                 <div class="image-cat">
                                     <a href="{{route('category.index',['category'=>'accessoire'])}}" title="Accessories" target="_self">
-                                        <img src="/image/catalog/demo/category/cate5.jpg" title="Accessories" alt="Accessories" />
+                                        <img src="{{asset('/image/catalog/demo/category/cate5.jpg')}}" title="Accessories" alt="Accessories" />
                                     </a>
                                 </div>
                                 <div class="cat-title">
@@ -133,7 +133,7 @@
             <div class="banners banners1">
                 <div class="banner">
                     <a href="#">
-                        <img src="/image/catalog/banners/id2-banner1.jpg" alt="image">
+                        <img src="{{asset('/image/catalog/banners/id2-banner1.jpg')}}" alt="image">
                     </a>
                 </div>
             </div>
@@ -175,9 +175,21 @@
                                                     </div>
 
                                                     <div class="button-group so-quickview cartinfo--left">
-                                                        <button type="button" class="addToCart btn-button" title="Add to cart" onclick="cart.add('60 ');">  <i class="fa fa-shopping-basket"></i>
-                                                            <span>Add to cart </span>
-                                                        </button>
+
+                                @if ($product->quantity>0)
+                                <form action="{{ route('cart.store') }}" method="post">
+                                    @csrf
+
+                                    <input type="hidden" name="id" value="{{ $product->id }}">
+                                    <input type="hidden" name="quantity" value="1">
+
+                                    <input type="hidden" name="name" value="{{ $product->name }}">
+                                    <input type="hidden" name="price" value="{{ $product->price }}">
+                                        <button type="submit" class="addToCart btn-button" title="Acheter">  <i class="fa fa-shopping-basket"></i>
+                                            <span>Acheter </span>
+                                        </button>
+                                </form>
+                                @endif
                                                     </div>
                                                 </div>
                                                 <div class="right-block">
@@ -219,37 +231,37 @@
                 <div class="yt-content-slider contentslider" data-rtl="no" data-loop="yes" data-autoplay="no" data-autoheight="no" data-autowidth="no" data-delay="4" data-speed="0.6" data-margin="0" data-items_column0="8" data-items_column1="6" data-items_column2="3" data-items_column3="2" data-items_column4="1" data-arrows="yes" data-pagination="no" data-lazyload="yes" data-hoverpause="yes">
                     <div class="item">
                         <a href="#">
-                            <img src="/image/catalog/brands/1.png" alt="brand">
+                            <img src="{{asset('/image/catalog/brands/1.png')}}" alt="brand">
                         </a>
                     </div>
                     <div class="item">
                         <a href="#">
-                            <img src="/image/catalog/brands/2.png" alt="brand">
+                            <img src="{{asset('/image/catalog/brands/2.png')}}" alt="brand">
                         </a>
                     </div>
                     <div class="item">
                         <a href="#">
-                            <img src="/image/catalog/brands/3.png" alt="brand">
+                            <img src="{{asset('/image/catalog/brands/3.png')}}" alt="brand">
                         </a>
                     </div>
                     <div class="item">
                         <a href="#">
-                            <img src="/image/catalog/brands/4.png" alt="brand">
+                            <img src="{{asset('/image/catalog/brands/4.png')}}" alt="brand">
                         </a>
                     </div>
                     <div class="item">
                         <a href="#">
-                            <img src="/image/catalog/brands/5.png" alt="brand">
+                            <img src="{{asset('/image/catalog/brands/5.png')}}" alt="brand">
                         </a>
                     </div>
                     <div class="item">
                         <a href="#">
-                            <img src="/image/catalog/brands/6.png" alt="brand">
+                            <img src="{{asset('/image/catalog/brands/6.png')}}" alt="brand">
                         </a>
                     </div>
                     <div class="item">
                         <a href="#">
-                            <img src="/image/catalog/brands/7.png" alt="brand">
+                            <img src="{{asset('/image/catalog/brands/7.png')}}" alt="brand">
                         </a>
                     </div>
                 </div>
@@ -267,10 +279,10 @@
     @endsection
     @section('extra-js')
 
-<script type="text/javascript" src="/js/modernizr/modernizr-2.6.2.min.js"></script>
-<script type="text/javascript" src="/js/minicolors/jquery.miniColors.min.js"></script>
+<script type="text/javascript" src="{{ asset('/js/modernizr/modernizr-2.6.2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/minicolors/jquery.miniColors.min.js') }}"></script>
 
-<script type="text/javascript" src="/js/themejs/homepage.js"></script>
+<script type="text/javascript" src="{{ asset('/js/themejs/homepage.js') }}"></script>
 
-<script type="text/javascript" src="/js/themejs/toppanel.js"></script>
+<script type="text/javascript" src="{{ asset('/js/themejs/toppanel.js') }}"></script>
     @endsection

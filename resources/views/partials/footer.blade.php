@@ -8,7 +8,7 @@
                     <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
                         <div class="logo-footer">
                             <a href="/">
-                                <img src="/image/catalog/logo.png" alt="image">
+                                <img src="{{asset('/image/catalog/logo.png')}}" alt="image">
                             </a>
                         </div>
                     </div>
@@ -158,11 +158,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-md-7 col-sm-12 col-xs-12 copyright-w">
-                        <div class="copyright">eMarket © 2018 Demo Store. All Rights Reserved. Designed by <a href="http://www.opencartworks.com/" target="_blank">OpenCartWorks.Com</a>
+                        <div class="copyright">Newtechmek © 2020 Demo Store. All Rights Reserved. Designed by <a href="http://www.opencartworks.com/" target="_blank">OpenCartWorks.Com</a>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-5 col-sm-12 col-xs-12 payment-w">
-                        <img src="image/catalog/demo/payment/payment.png" alt="imgpayment">
+                        <img src="{{asset('image/catalog/demo/payment/payment.png')}}" alt="imgpayment">
                     </div>
                 </div>
             </div>

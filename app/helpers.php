@@ -2,7 +2,7 @@
 
 function presentPrice($price)
 {
-    return sprintf('%01.2f DZD', $price/100);
+    return sprintf('%d DA', $price);
 }
 
 function setActiveCategory($category, $output = 'active')
@@ -12,7 +12,8 @@ function setActiveCategory($category, $output = 'active')
 
 function productImage($path)
 {
-    return $path && file_exists('storage/'.$path) ? asset('storage/'.$path) : asset('img/not-found.jpg');
+    //return $path && file_exists('storage/'.$path) ? asset('storage/'.$path) : asset('img/not-found.jpg');
+    return $path  ? asset('storage/'.$path) : asset('img/not-found.jpg');
 }
 
 

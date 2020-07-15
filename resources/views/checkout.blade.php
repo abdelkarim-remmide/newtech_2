@@ -39,54 +39,54 @@
 
 				  <div class="panel panel-default">
 					<div class="panel-heading">
-					  <h4 class="panel-title"><i class="fa fa-user"></i> Your Personal Details</h4>
+					  <h4 class="panel-title"><i class="fa fa-user"></i> Vos Information personnelle</h4>
 					</div>
 					  <div class="panel-body">
 							<fieldset id="account">
 							  <div class="form-group required">
-								<label for="input-payment-firstname" class="control-label">First Name</label>
-								<input type="text" class="form-control" id="input-payment-firstname" placeholder="First Name" value="{{old('nom')}}" name="nom" required>
+								<label for="input-payment-firstname" class="control-label">Nom :</label>
+								<input type="text" class="form-control" id="input-payment-firstname" placeholder="Nom" value="{{old('nom')}}" name="nom" required>
 							  </div>
 							  <div class="form-group required">
-								<label for="input-payment-lastname" class="control-label">Last Name</label>
-								<input type="text" class="form-control" id="input-payment-lastname" placeholder="Last Name" value="{{old('prenom')}}" name="prenom" required>
+								<label for="input-payment-lastname" class="control-label">Prénom :</label>
+								<input type="text" class="form-control" id="input-payment-lastname" placeholder="Prénom" value="{{old('prenom')}}" name="prenom" required>
 							  </div>
 							  <div class="form-group required">
-                                <label for="input-payment-email" class="control-label">E-Mail</label>
+                                <label for="input-payment-email" class="control-label">Adresse e-mail :</label>
                                 @if (auth()->user())
-                                <input type="email" class="form-control" id="input-payment-email" placeholder="E-Mail" value="{{auth()->user()->email}}" name="email" readonly>
+                                <input type="email" class="form-control" id="input-payment-email" placeholder="Adresse e-mail" value="{{auth()->user()->email}}" name="email" readonly>
                                 @else
-                                <input type="email" class="form-control" id="input-payment-email" placeholder="E-Mail" value="{{old('email')}}" name="email">
+                                <input type="email" class="form-control" id="input-payment-email" placeholder="Adresse e-mail" value="{{old('email')}}" name="email">
                                 @endif
 
 							  </div>
 							  <div class="form-group required">
-								<label for="input-payment-telephone" class="control-label">Telephone</label>
-								<input type="text" class="form-control" id="input-payment-telephone" placeholder="Telephone" value="{{old('tel')}}" name="tel" required>
+								<label for="input-payment-telephone" class="control-label">Numéro de téléphone :</label>
+								<input type="text" class="form-control" id="input-payment-telephone" placeholder="Numéro de téléphone" value="{{old('tel')}}" name="tel" required>
 							  </div>
 							</fieldset>
 						  </div>
 				  </div>
 				  <div class="panel panel-default">
 					<div class="panel-heading">
-					  <h4 class="panel-title"><i class="fa fa-book"></i> Your Address</h4>
+					  <h4 class="panel-title"><i class="fa fa-book"></i> Votre Addresse</h4>
 					</div>
 					  <div class="panel-body">
 							<fieldset id="address" class="required">
 							  <div class="form-group required">
-								<label for="input-payment-address-1" class="control-label">Address </label>
-								<input type="text" class="form-control" id="input-payment-address-1" placeholder="Address 1" value="{{old('address')}}" name="address" required>
+								<label for="input-payment-address-1" class="control-label">Addresse </label>
+								<input type="text" class="form-control" id="input-payment-address-1" placeholder="Addresse" value="{{old('address')}}" name="address" required>
 							  </div>
 							  <div class="form-group required">
-								<label for="input-payment-city" class="control-label">City</label>
-								<input type="text" class="form-control" id="input-payment-city" placeholder="City" value="{{old('wilaya')}}" name="wilaya" required>
+								<label for="input-payment-city" class="control-label">Wilaya/ville :</label>
+								<input type="text" class="form-control" id="input-payment-city" placeholder="Wilaya/ville" value="{{old('wilaya')}}" name="wilaya" required>
 							  </div>
 							  <div class="form-group required">
-								<label for="input-payment-postcode" class="control-label">Post Code</label>
-								<input type="text" class="form-control" id="input-payment-postcode" placeholder="Post Code" value="{{old('code_postal')}}" name="code_postal" required>
+								<label for="input-payment-postcode" class="control-label">Code Postal</label>
+								<input type="text" class="form-control" id="input-payment-postcode" placeholder="Code Postal" value="{{old('code_postal')}}" name="code_postal" required>
 							  </div>
 							  <div class="form-group required">
-								<label for="input-payment-country" class="control-label">Country</label>
+								<label for="input-payment-country" class="control-label">Pays :</label>
 								<select class="form-control" id="input-payment-country" name="pay" required>
 
 								  <option value="Algeria">Algeria</option>
@@ -102,7 +102,7 @@
 					<div class="col-sm-12">
 					  <div class="panel panel-default">
 						<div class="panel-heading">
-						  <h4 class="panel-title"><i class="fa fa-shopping-cart"></i> Shopping cart</h4>
+						  <h4 class="panel-title"><i class="fa fa-shopping-cart"></i> VOTRE COMMANDE</h4>
 						</div>
 						  <div class="panel-body">
 							<div class="table-responsive">
@@ -110,9 +110,9 @@
 								<thead>
 								  <tr>
 									<td class="text-center">Image</td>
-									<td class="text-left">Product Name</td>
+									<td class="text-left">Nom de produit</td>
 									<td class="text-left">Quantity</td>
-									<td class="text-right">Unit Price</td>
+									<td class="text-right">Prix de l'unity</td>
 									<td class="text-right">Total</td>
 								  </tr>
 								</thead>
@@ -123,9 +123,12 @@
                                     <td class="text-left"><a href="{{ route('category.show', $item->product->slug) }}">{{ $item->product->name }}</a><br />
                                      </td>
                                     <td class="text-left" width="200px"><div class="input-group btn-block quantity">
-                                        <input type="text" name="quantity" value="{{ $item->qty }}" size="{{ $item->qty }}" class="form-control" />
+                                        <input type="text" name="quantity" value="{{ $item->qty }}" size="{{ $item->qty }}"
+                                            class="form-control" />
                                         <span class="input-group-btn">
-                                        <button type="submit" data-toggle="tooltip" title="Update" class="btn btn-primary"><i class="fa fa-clone"></i></button>
+                                            <button type="submit" data-toggle="tooltip" title="Update"
+                                        class="btn btn-primary quantity-button" data-id="{{$item->__raw_id}}" data-productQuantity="{{ $item->product->quanity }}"><i
+                                                    class="fa fa-clone"></i></button>
                                         <button type="submit" data-toggle="tooltip" title="Remove" class="btn btn-danger" onClick="delete()"><i class="fa fa-times-circle"></i></button>
 
 
@@ -137,13 +140,13 @@
 								</tbody>
 								<tfoot>
 								  <tr>
-									<td class="text-right" colspan="4"><strong>Sub-Total:</strong></td>
+									<td class="text-right" colspan="4"><strong>Sous-Total:</strong></td>
 									<td class="text-right">{{presentPrice(Cart::total())}}</td>
 								  </tr>
 
 								  <tr>
 									<td class="text-right" colspan="4"><strong>Total:</strong></td>
-									<td class="text-right">{{presentPrice(Cart::total())}}</td>
+									<td class="text-right h4 text-success">{{presentPrice(Cart::total())}}</td>
 								  </tr>
 								</tfoot>
 							  </table>
@@ -154,7 +157,7 @@
 					<div class="col-sm-12">
 					  <div class="panel panel-default">
 						<div class="panel-heading">
-						  <h4 class="panel-title"><i class="fa fa-pencil"></i> Add Comments About Your Order</h4>
+						  <h4 class="panel-title"><i class="fa fa-pencil"></i> Valid votre commande</h4>
 						</div>
 						  <div class="panel-body">
 							<label class="control-label" for="confirm_agree">
@@ -165,8 +168,8 @@
                               <label><div class="g-recaptcha" data-sitekey="6Ldd-rAZAAAAAJHQGrVG15lTxouQV5JJy2bFcBWZ"></div></label>
 							<div class="buttons">
 							  <div class="pull-right">
-                                <button type="submit" class="btn btn-primary" id="make-payment" ><img src="/image/cib.png" height="25" width="25" >
-                                    Valider</button>
+                                <button type="submit" class="btn btn-primary" id="make-payment" ><img src="{{asset('/image/cib.png')}}" height="25" width="25" >
+                                    Commander</button>
 							  </div>
 							</div>
 						  </div>
@@ -189,7 +192,7 @@
     </form>
     @endsection
     @section('extra-js')
-
+    <script src="{{ asset('js/app.js') }}"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
         <script>
             window.onload = function() {
@@ -204,5 +207,30 @@
             function delete() {
                 document.getElementById('delete-form').submit()
             }
+            (function () {
+
+    const classname = document.querySelectorAll('.quantity-button')
+    Array.from(classname).forEach(function (element) {
+        element.addEventListener('click', function () {
+            const id = element.getAttribute('data-id')
+            const productQuantity = element.getAttribute('data-productQuantity')
+            const quantity = this.parentNode.previousSibling.previousSibling.value
+            axios.patch(`/cart/${id}`, {
+                quantity: quantity,
+                productQuantity: productQuantity
+            })
+            .then(function (response) {
+                // console.log(response);
+                window.location.href = '{{ route('cart.index') }}'
+            })
+            .catch(function (error) {
+                //console.log(error);
+                window.location.href = '{{ route('cart.index') }}'
+            });
+
+        })
+    })
+})()
+
         </script>
     @endsection

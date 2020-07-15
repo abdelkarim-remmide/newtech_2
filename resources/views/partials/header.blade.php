@@ -8,7 +8,7 @@
             <div class="row">
                 <!-- Logo -->
                 <div class="navbar-logo col-lg-2 col-md-3 col-sm-12 col-xs-12">
-                    <div class="logo"><a href="{{route('index')}}"><img src="/image/catalog/logo.png" title="Your Store" alt="Your Store" /></a></div>
+                    <div class="logo"><a href="{{route('index')}}"><img src="{{asset('/image/catalog/logo.png')}}" title="Your Store" alt="Your Store" /></a></div>
                 </div>
                 <!-- //end Logo -->
                 <!-- Search -->
@@ -108,7 +108,7 @@
                                         <table class="table table-bordered">
                                             <tbody>
                                                 <tr>
-                                                    <td class="text-left"><strong>Sub-Total</strong>
+                                                    <td class="text-left"><strong>Sous-Total</strong>
                                                     </td>
                                                     <td class="text-right">{{presentPrice(Cart::total())}}</td>
                                                 </tr>
@@ -125,7 +125,7 @@
                                 </li>
                                 @else
 
-                                            <li class="text-center">No item in cart</li>
+                                            <li class="text-center">Le panier est vide</li>
                                             @endif
                             </ul>
                         </div>

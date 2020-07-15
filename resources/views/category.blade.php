@@ -136,18 +136,24 @@
                                         <div class="price"> <span class="price-new">{{ $product->presentPrice() }}</span>
                                         </div>
                                         <div class="description item-desc">
-                                        <p>{{ $product->description }}</p>
+                                        <p>{!! $product->description !!}</p>
                                         </div>
                                         <div class="list-block">
-                                            <button class="addToCart btn-button" type="button" title="Add to Cart" onclick="cart.add('101', '1');"><i class="fa fa-shopping-basket"></i>
-                                            </button>
-                                            <button class="wishlist btn-button" type="button" title="Add to Wish List" onclick="wishlist.add('101');"><i class="fa fa-heart"></i>
-                                            </button>
-                                            <button class="compare btn-button" type="button" title="Compare this Product" onclick="compare.add('101');"><i class="fa fa-refresh"></i>
-                                            </button>
-                                            <!--quickview-->
-                                            <a class="iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" data-fancybox-type="iframe"><i class="fa fa-eye"></i></a>
-                                            <!--end quickview-->
+
+                                @if ($product->quantity>0)
+                                <form action="{{ route('cart.store') }}" method="post">
+                                    @csrf
+
+                                    <input type="hidden" name="id" value="{{ $product->id }}">
+                                    <input type="hidden" name="quantity" value="1">
+
+                                    <input type="hidden" name="name" value="{{ $product->name }}">
+                                    <input type="hidden" name="price" value="{{ $product->price }}">
+                                        <button type="submit" class="addToCart btn-button" title="Acheter">  <i class="fa fa-shopping-basket"></i>
+                                            <span>Acheter </span>
+                                        </button>
+                                </form>
+                                @endif
                                         </div>
                                     </div>
                                 </div>

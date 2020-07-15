@@ -58,6 +58,14 @@ class RegisterController extends Controller
         ]);
     }
 
+    public function showRegistrationForm() {
+
+        $categories = Category::whereNull('parent_id')->get();
+        return view('auth.register')->with([
+            'categories'=>$categories
+        ]);
+    }
+
     /**
      * Create a new user instance after a valid registration.
      *

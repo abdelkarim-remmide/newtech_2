@@ -26,7 +26,7 @@ Route::get('/guestcheckout', 'CheckoutController@index')->name('guestcheckout.in
 Route::get('/confirm/{order}', 'CheckoutController@edit')->name('guestcheckout.edit');
 Route::post('/checkout', 'CheckoutController@store')->name('checkout.store');
 Route::get('/cart', 'CartController@index')->name('cart.index');
-Route::get('/sendmail', 'CheckoutController@sendmail')->name('sendmail');
+Route::get('/sendmail/{id}', 'CheckoutController@sendmail')->name('sendmail');
 Route::get('/downloadPDF/{id}','CheckoutController@downloadPDF');
 Route::post('/cart', 'CartController@store')->name('cart.store');
 Route::delete('/cart/{product}', 'CartController@destroy')->name('cart.destroy');

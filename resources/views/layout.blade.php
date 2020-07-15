@@ -27,26 +27,26 @@
 
     <!-- Libs CSS
     ============================================ -->
-    <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css">
-    <link href="/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/js/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
-    <link href="/js/owl-carousel/owl.carousel.css" rel="stylesheet">
-    <link href="/css/themecss/lib.css" rel="stylesheet">
-    <link href="/js/jquery-ui/jquery-ui.min.css" rel="stylesheet">
-    <link href="/js/minicolors/miniColors.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('/css/bootstrap/css/bootstrap.min.css')}}">
+    <link href="{{asset('/css/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{asset('/js/datetimepicker/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
+    <link href="{{asset('/js/owl-carousel/owl.carousel.css')}}" rel="stylesheet">
+    <link href="{{asset('/css/themecss/lib.css')}}" rel="stylesheet">
+    <link href="{{asset('/js/jquery-ui/jquery-ui.min.css')}}" rel="stylesheet">
+    <link href="{{asset('/js/minicolors/miniColors.css')}}" rel="stylesheet">
 
     <!-- Theme CSS
     ============================================ -->
-    <link href="/css/themecss/so_searchpro.css" rel="stylesheet">
-    <link href="/css/themecss/so_megamenu.css" rel="stylesheet">
-    <link href="/css/themecss/so-categories.css" rel="stylesheet">
-    <link href="/css/themecss/so-listing-tabs.css" rel="stylesheet">
-    <link href="/css/themecss/so-newletter-popup.css" rel="stylesheet">
+    <link href="{{asset('/css/themecss/so_searchpro.css')}}" rel="stylesheet">
+    <link href="{{asset('/css/themecss/so_megamenu.css')}}" rel="stylesheet">
+    <link href="{{asset('/css/themecss/so-categories.css')}}" rel="stylesheet">
+    <link href="{{asset('/css/themecss/so-listing-tabs.css')}}" rel="stylesheet">
+    <link href="{{asset('/css/themecss/so-newletter-popup.css')}}" rel="stylesheet">
 
-    <link href="/css/footer/footer2.css" rel="stylesheet">
-    <link href="/css/header/header2.css" rel="stylesheet">
-    <link id="color_scheme" href="/css/home2.css" rel="stylesheet">
-    <link href="/css/responsive.css" rel="stylesheet">
+    <link href="{{asset('/css/footer/footer2.css')}}" rel="stylesheet">
+    <link href="{{asset('/css/header/header2.css')}}" rel="stylesheet">
+    <link id="color_scheme" href="{{asset('/css/home2.css')}}" rel="stylesheet">
+    <link href="{{asset('/css/responsive.css')}}" rel="stylesheet">
 
     <!-- Google web fonts
     ============================================ -->
@@ -70,23 +70,23 @@
     <!-- Include Libs & Plugins
 ============================================ -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script type="text/javascript" src="/js/jquery-2.2.4.min.js"></script>
-    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/owl-carousel/owl.carousel.js"></script>
-    <script type="text/javascript" src="/js/themejs/libs.js"></script>
-    <script type="text/javascript" src="/js/unveil/jquery.unveil.js"></script>
-    <script type="text/javascript" src="/js/countdown/jquery.countdown.min.js"></script>
-    <script type="text/javascript" src="/js/dcjqaccordion/jquery.dcjqaccordion.2.8.min.js"></script>
-    <script type="text/javascript" src="/js/datetimepicker/moment.js"></script>
-    <script type="text/javascript" src="/js/datetimepicker/bootstrap-datetimepicker.min.js"></script>
-    <script type="text/javascript" src="/js/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="{{ asset('/js/jquery-2.2.4.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('/js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('/js/owl-carousel/owl.carousel.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('/js/themejs/libs.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('/js/unveil/jquery.unveil.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('/js/countdown/jquery.countdown.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('/js/dcjqaccordion/jquery.dcjqaccordion.2.8.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('/js/datetimepicker/moment.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('/js/datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('/js/jquery-ui/jquery-ui.min.js')}}"></script>
 
     <!-- Theme files
 ============================================ -->
 
-    <script type="text/javascript" src="/js/themejs/application.js"></script>
-    <script type="text/javascript" src="/js/themejs/so_megamenu.js"></script>
-    <script type="text/javascript" src="/js/themejs/addtocart.js"></script>
+    <script type="text/javascript" src="{{ asset('/js/themejs/application.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('/js/themejs/so_megamenu.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('/js/themejs/addtocart.js')}}"></script>
     @yield('extra-js')
 </body>
 

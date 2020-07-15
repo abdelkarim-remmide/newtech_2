@@ -247,9 +247,9 @@
                                                 @else
                                                     @include('voyager::multilingual.input-hidden-bread-browse')
                                                     @if ($row->display_name=='price')
-                                                    <span>{{ $data->{$row->field} / 100 }} DZD</span>
+                                                    <span>{{ $data->{$row->field} }} DA</span>
                                                     @else
-                                                    <span>{{ $data->{$row->field} }} DZD</span>
+                                                    <span>{{ $data->{$row->field} }}</span>
                                                     @endif
 
                                                 @endif

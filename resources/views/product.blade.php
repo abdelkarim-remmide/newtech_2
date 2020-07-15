@@ -5,7 +5,7 @@
 @endsection
 @section('extra-css')
 
-<link href="/js/lightslider/lightslider.css" rel="stylesheet">
+<link href="{{asset('/js/lightslider/lightslider.css')}}" rel="stylesheet">
 @endsection
 @section('content')
 
@@ -14,9 +14,9 @@
 	<!-- Main Container  -->
 	<div class="main-container container">
 		<ul class="breadcrumb">
-			<li><a href="#"><i class="fa fa-home"></i></a></li>
-			<li><a href="#">Smartphone & Tablets</a></li>
-			<li><a href="#">{{ $product->name }}</a></li>
+			<li><a href="/"><i class="fa fa-home"></i></a></li>
+        <li><a href="{{route('category.index',['category'=>$product->category[0]->slug])}}">{{$product->category[0]->name}}</a></li>
+			<li>{{ $product->name }}</li>
 
 		</ul>
 
@@ -97,8 +97,8 @@
 									</div>
 								</div>
 
-								<a class="reviews_button" href="" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">0 reviews</a>	|
-								<a class="write_review_button" href="" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">Write a review</a>
+								<a class="reviews_button" href="#" >0 reviews</a>	|
+								<a class="write_review_button" href="#">(Disable)</a>
 							</div>
                             <div class="short_description form-group">
                                 <h4>Overview</h4>
@@ -108,7 +108,7 @@
 								<div class="product_page_price price" itemprop="offerDetails" itemscope="" itemtype="http://data-vocabulary.org/Offer">
 									<span class="price-new" itemprop="price">{{ $product->presentPrice() }}</span>
 								</div>
-                            <div class="stock"><span>Availability:</span> <span class="status-stock">{{ $stocklevel }}</span></div>
+                            <div class="stock"><span>Disponibilite:</span> <span class="status-stock">{{ $stocklevel }}</span></div>
 							</div>
 
 
@@ -120,7 +120,7 @@
 								<div class="form-group box-info-product">
 									<div class="option quantity">
 										<div class="input-group quantity-control" unselectable="on" style="-webkit-user-select: none;">
-											<label>Qty</label>
+											<label>Quantity</label>
 											<input class="form-control" type="text" name="quantity"
 											value="1">
 											<input type="hidden" name="product_id" value="50">
@@ -133,7 +133,7 @@
                                         <input type="hidden" name="id" value="{{ $product->id }}">
                                             <input type="hidden" name="name" value="{{ $product->name }}">
                                             <input type="hidden" name="price" value="{{ $product->price }}">
-                                            <input type="submit" data-toggle="tooltip" title="" value="Add to Cart" data-loading-text="Loading..." id="button-cart" class="btn btn-mega btn-lg" onclick="cart.add('42', '1');" data-original-title="Add to Cart">
+                                            <input type="submit" data-toggle="tooltip" title="" value="Acheter" data-loading-text="Loading..." id="button-cart" class="btn btn-mega btn-lg" data-original-title="Add to Cart">
 
 
                                     </div>
@@ -149,7 +149,9 @@
 
 					</div>
 				</div>
-				<!-- Product Tabs -->
+                <!-- Product Tabs -->
+                @if (!empty($product->description))
+
 				<div class="producttab ">
 					<div class="tabsslider  vertical-tabs col-xs-12">
 						<ul class="nav nav-tabs col-lg-2 col-sm-3">
@@ -157,16 +159,17 @@
 						</ul>
 						<div class="tab-content col-lg-10 col-sm-9 col-xs-12">
 							<div id="tab-1" class="tab-pane fade active in">
-								{{!! $product->description !!}}
+								{!! $product->description !!}
 							</div>
 						</div>
 					</div>
 				</div>
+                @endif
 				<!-- //Product Tabs -->
 
 				<!-- Related Products -->
 			<div class="related titleLine products-list grid module ">
-				<h3 class="modtitle">Related Products  </h3>
+				<h3 class="modtitle">Produits apparentés  </h3>
 
 				<div class="releate-products yt-content-slider products-list" data-rtl="no" data-loop="yes" data-autoplay="no" data-autoheight="no" data-autowidth="no" data-delay="4" data-speed="0.6" data-margin="30" data-items_column0="5" data-items_column1="3" data-items_column2="3" data-items_column3="2" data-items_column4="1" data-arrows="yes" data-pagination="no" data-lazyload="yes" data-hoverpause="yes">
                     @foreach ($mightAlsoLike as $product)
@@ -182,16 +185,21 @@
                                     </div>
 
                                     <div class="button-group so-quickview cartinfo--left">
-                                        <button type="button" class="addToCart btn-button" title="Add to cart" onclick="cart.add('60 ');">  <i class="fa fa-shopping-basket"></i>
-                                            <span>Add to cart </span>
+
+                                @if ($product->quantity>0)
+                                <form action="{{ route('cart.store') }}" method="post">
+                                    @csrf
+
+                                    <input type="hidden" name="id" value="{{ $product->id }}">
+                                    <input type="hidden" name="quantity" value="1">
+
+                                    <input type="hidden" name="name" value="{{ $product->name }}">
+                                    <input type="hidden" name="price" value="{{ $product->price }}">
+                                        <button type="submit" class="addToCart btn-button" title="Acheter">  <i class="fa fa-shopping-basket"></i>
+                                            <span>Acheter </span>
                                         </button>
-                                        <button type="button" class="wishlist btn-button" title="Add to Wish List" onclick="wishlist.add('60');"><i class="fa fa-heart"></i><span>Add to Wish List</span>
-                                        </button>
-                                        <button type="button" class="compare btn-button" title="Compare this Product " onclick="compare.add('60');"><i class="fa fa-refresh"></i><span>Compare this Product</span>
-                                        </button>
-                                        <!--quickview-->
-                                        <a class="iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" data-fancybox-type="iframe"><i class="fa fa-eye"></i><span>Quick view</span></a>
-                                        <!--end quickview-->
+                                </form>
+                                @endif
                                     </div>
                                 </div>
                                 <div class="right-block">
@@ -233,6 +241,6 @@
     @endsection
     @section('extra-js')
 
-	<script type="text/javascript" src="/js/themejs/homepage.js"></script>
-	<script type="text/javascript" src="/js/lightslider/lightslider.js"></script>
+	<script type="text/javascript" src="{{asset('/js/themejs/homepage.js')}}"></script>
+	<script type="text/javascript" src="{{asset('/js/lightslider/lightslider.js')}}"></script>
     @endsection

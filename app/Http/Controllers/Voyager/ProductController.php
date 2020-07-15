@@ -337,7 +337,7 @@ class ProductController extends VoyagerBaseController
         // Check permission
         $this->authorize('edit', $data);
         $requestNew = $request;
-        $requestNew['price'] = $request->price *100;
+        $requestNew['price'] = $request->price ;
         // Validate fields with ajax
         $val = $this->validateBread($request->all(), $dataType->editRows, $dataType->name, $id)->validate();
         $this->insertUpdateData($requestNew, $slug, $dataType->editRows, $data);
@@ -428,7 +428,7 @@ class ProductController extends VoyagerBaseController
         // Check permission
         $this->authorize('add', app($dataType->model_name));
         $requestNew = $request;
-        $requestNew['price'] = $request->price *100;
+        $requestNew['price'] = $request->price ;
         // Validate fields with ajax
         $val = $this->validateBread($request->all(), $dataType->addRows)->validate();
         $data = $this->insertUpdateData($requestNew, $slug, $dataType->addRows, new $dataType->model_name());

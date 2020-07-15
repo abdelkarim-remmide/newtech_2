@@ -14,7 +14,7 @@ class Product extends Model
 
     public function presentPrice()
     {
-        return sprintf('%01.2f DZD', $this->price/100);
+        return sprintf('%d DA', $this->price);
     }
 
     public function scopeMightAlsoLike($query)

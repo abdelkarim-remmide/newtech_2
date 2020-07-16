@@ -8,7 +8,7 @@
             <div class="row">
                 <!-- Logo -->
                 <div class="navbar-logo col-lg-2 col-md-3 col-sm-12 col-xs-12">
-                    <div class="logo"><a href="{{route('index')}}"><img src="{{asset('/image/catalog/logo.png')}}" title="Your Store" alt="Your Store" /></a></div>
+                    <div class="logo"><a href="{{route('index')}}"><img src="{{asset('/image/catalog/logo2.png')}}" title="Your Store" alt="Your Store" /></a></div>
                 </div>
                 <!-- //end Logo -->
                 <!-- Search -->
@@ -181,11 +181,32 @@
                                             <div class="container-mega">
                                                 <ul class="megamenu">
                                                     @foreach ($categories as $category)
-                                                    <li class="item-vertical">
+                                                    <li class="item-vertical @if (count($category->childCategory)) with-sub-menu hover @endif">
                                                         <p class="close-menu"></p>
                                                         <a href="{{route('category.index',['category'=>$category->slug])}}" class="clearfix">
                                                             <span>{{$category->name}}</span>
                                                         </a>
+                                                        @if (count($category->childCategory))
+                                                        <div class="sub-menu" data-subwidth="60"  >
+                                                            <div class="content" >
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12 static-menu">
+                                                                                <div class="menu">
+                                                                                    <ul>
+                                                                                        @foreach ($category->childCategory as $subCat)
+                                                                                        <li><a href="{{route('category.index',['category'=>$subCat->slug])}}">{{$subCat->name}}</a></li>
+                                                                                        @endforeach
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @endif
                                                     </li>
                                                     @endforeach
                                                 </ul>

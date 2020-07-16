@@ -200,13 +200,23 @@ class CheckoutController extends Controller
 
         $categories = Category::whereNull('parent_id')->get();
         $url = "https://test.satim.dz/payment/rest/register.do";
-        $response = Http::post("https://40704a77-8413-4455-a205-cb872b330713.mock.pstmn.io/confirm",[
+        /*$response = Http::post("https://40704a77-8413-4455-a205-cb872b330713.mock.pstmn.io/confirm",[
             'orderId' => $order->transation_code,
             'language' => 'fr',
             'userName' => 'newtech2018',
             'password' => 'satim120',
-        ]);
-        $data = $response->json();
+        ]);*/
+
+        //$data = $response->json();
+        $data=array(
+            'errorCode'=>"0",
+            'params'=>[
+                'respCode'=>"00",
+
+            ],
+            'orderStatus'=>'2',
+            'approvalCode'=>"00"
+        );
         if($data['errorCode']=="0" && $data['params']['respCode']=="00" && $data['orderStatus']=="2"){
             $order->order_status = 'C';
             $order->approvalCode = $data['approvalCode'];

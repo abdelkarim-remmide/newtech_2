@@ -34,7 +34,7 @@
                                     @if (count($category->childCategory))
                                     <span class="button-view  fa fa-plus-square-o"></span>
                                     <ul style="display: block;">
-                                    @foreach ($category->childCategories as $subCat)
+                                    @foreach ($category->childCategory as $subCat)
                                     <li><a href="{{route('category.index',['category'=>$subCat->slug])}}">{{$subCat->name}}</a></li>
                                     @endforeach
 

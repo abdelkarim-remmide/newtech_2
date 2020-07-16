@@ -19,7 +19,7 @@
                     <ul style="display:flex">
                         <li style="padding-right: 10px"><a href="#" id="cmd">Télécharger</a></li>
                         <li style="padding-right: 10px"><a href="javascript:window.print()">Imprimer</a></li>
-                    <li><a href="{{ route('sendmail') }}">Envoyer par mail</a></li>
+                    <li><a href="{{ route('sendmail',$order->id) }}">Envoyer par mail</a></li>
                     </ul>
                 </div>
 				<table class="table table-bordered table-hover">

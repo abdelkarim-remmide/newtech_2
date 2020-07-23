@@ -67,12 +67,15 @@
 							<div id="thumb-slider" class="yt-content-slider full_slider owl-drag" data-rtl="yes" data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="10" data-items_column0="4" data-items_column1="3" data-items_column2="4"  data-items_column3="1" data-items_column4="1" data-arrows="yes" data-pagination="no" data-lazyload="yes" data-loop="no" data-hoverpause="yes">
                                 <a data-index="0" class="img thumbnail " data-image="{{ productImage($product->image) }}" title="{{ $product->name }}">
 									<img src="{{ productImage($product->image) }}" title="{{ $product->name }}" alt="{{ $product->name }}">
+                                </a>
+                                <a data-index="1" class="img thumbnail " data-image="{{ productImage($product->image) }}" title="{{ $product->name }}">
+									<img src="{{ productImage($product->image2) }}" title="{{ $product->name }}" alt="{{ $product->name }}">
 								</a>
                                 @if ($product->images)
                                     @foreach (json_decode($product->images, true) as $image)
 
 
-								<a data-index="{{ $loop->index+1 }}" class="img thumbnail " data-image="{{ productImage($image) }}" title="{{ $product->name }}">
+								<a data-index="{{ $loop->index+2 }}" class="img thumbnail " data-image="{{ productImage($image) }}" title="{{ $product->name }}">
 									<img src="{{ productImage($image) }}" title="{{ $product->name }}" alt="{{ $product->name }}">
 								</a>
                                     @endforeach
@@ -101,14 +104,17 @@
 								<a class="write_review_button" href="#">(Disable)</a>
 							</div>
                             <div class="short_description form-group">
+                                @if ($product->details)
+
                                 <h4>Overview</h4>
                                 {{ $product->details }}
+                                @endif
                             </div>
 							<div class="product-label form-group">
 								<div class="product_page_price price" itemprop="offerDetails" itemscope="" itemtype="http://data-vocabulary.org/Offer">
 									<span class="price-new" itemprop="price">{{ $product->presentPrice() }}</span>
 								</div>
-                            <div class="stock"><span>Disponibilite:</span> <span class="status-stock">{{ $stocklevel }}</span></div>
+                            <div class="stock"><span>Disponibilité:</span> <span class="status-stock">{{ $stocklevel }}</span></div>
 							</div>
 
 
@@ -120,7 +126,7 @@
 								<div class="form-group box-info-product">
 									<div class="option quantity">
 										<div class="input-group quantity-control" unselectable="on" style="-webkit-user-select: none;">
-											<label>Quantity</label>
+											<label>Quantité</label>
 											<input class="form-control" type="text" name="quantity"
 											value="1">
 											<input type="hidden" name="product_id" value="50">
@@ -180,7 +186,7 @@
                                     <div class="product-image-container second_img">
                                         <a href="{{ route('category.show',$product->slug) }}" target="_self" title="{{ $product->name }}">
                                             <img src="{{ productImage($product->image) }}" class="img-1 img-responsive" alt="{{ $product->name }}">
-                                            <img src="{{ productImage($product->image) }}" class="img-2 img-responsive" alt="{{ $product->name }}">
+                                            <img src="{{ productImage($product->image2) }}" class="img-2 img-responsive" alt="{{ $product->name }}">
                                         </a>
                                     </div>
 

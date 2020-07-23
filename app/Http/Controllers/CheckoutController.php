@@ -63,59 +63,69 @@ class CheckoutController extends Controller
 
         $order = $this->addToOrdersTables($request,null);
 
-
-        $url = "https://test.satim.dz/payment/rest/register.do";
-        $response = Http::post("https://40704a77-8413-4455-a205-cb872b330713.mock.pstmn.io/register",[
-            'currency' => '012',
-            'amount' => Cart::total(),
-            'orderNumber' => $order->id,
-            'language' => 'fr',
-            'userName' => 'newtech2018',
-            'password' => 'satim120',
-            'returnUrl' => url("/confirm/{$order->id}"),
-            'failUrl' => "",
-            'jsonParams' => [
-                'force_terminal_id' => 'E021000004',
-                'udf1' => '2018105301346',
-                'udf5' => 'ggsf85s42524s5uhgsf'
-            ]
-        ]);
-        $data = $response->json();
-        if($response->successful()){
-            if($data['errorCode']=="0"){
-                $order->transation_code = $data['orderId'];
-                $order->order_status = 'E';
-                $order->save();
-                $formUrl = $data['formUrl'];
-                $this->decreaseQuantities();
-                //
-                Cart::destroy();
-                return redirect($formUrl);
+        if($order->payment_gateway=="Cart CIB"){
+            $url = "https://test.satim.dz/payment/rest/register.do";
+            $response = Http::post("https://40704a77-8413-4455-a205-cb872b330713.mock.pstmn.io/register",[
+                'currency' => '012',
+                'amount' => Cart::total(),
+                'orderNumber' => $order->id,
+                'language' => 'fr',
+                'userName' => 'newtech2018',
+                'password' => 'satim120',
+                'returnUrl' => url("/confirm/{$order->id}"),
+                'failUrl' => "",
+                'jsonParams' => [
+                    'force_terminal_id' => 'E021000004',
+                    'udf1' => '2018105301346',
+                    'udf5' => 'ggsf85s42524s5uhgsf'
+                ]
+            ]);
+            $data = $response->json();
+            if($response->successful()){
+                if($data['errorCode']=="0"){
+                    $order->transation_code = $data['orderId'];
+                    $order->order_status = 'E';
+                    $order->save();
+                    $formUrl = $data['formUrl'];
+                    $this->decreaseQuantities();
+                    //
+                    Cart::destroy();
+                    return redirect($formUrl);
+                }else{
+                    $order->error = $data['errorMessage'];
+                    $order->order_status = 'O';
+                    $order->save();
+                    return back()->withErrors('Desole i y avai une error avec le system de payment.');
+                }
             }else{
-                $order->error = $data['errorMessage'];
+                $order->error = "connection error";
                 $order->order_status = 'O';
                 $order->save();
                 return back()->withErrors('Desole i y avai une error avec le system de payment.');
             }
-        }else{
-            $order->error = "connection error";
-            $order->order_status = 'O';
-            $order->save();
-            return back()->withErrors('Desole i y avai une error avec le system de payment.');
         }
+        $this->decreaseQuantities();
+        Cart::destroy();
+        return redirect()->route('ordersstatus.show', ['order' => $order->id]);
+
     }
 
     public function sendEmail($id)
     {
         $order = Order::where('id',$id)->firstOrFail();
         Mail::queue(new OrderPlaced($order));
-        return view("email-send");
+        $categories = Category::whereNull('parent_id')->get();
+        return view("email-send")->with([
+            'categories'=>$categories
+        ]);
     }
 
     public function downloadPDF($id)
     {
 
         $order = Order::where('id',$id)->firstOrFail();
+
+        $products = $order->products;
         $pdf = PDF::loadView('pdf', compact(['order']));
         return $pdf->download('invoice.pdf');
     }
@@ -137,6 +147,7 @@ class CheckoutController extends Controller
             'billing_total' => Cart::total(),
             'transation_date'=> \Carbon\Carbon::now(),
             'error' => $error,
+            'payment_gateway'=>$request->payment
         ]);
 
 
@@ -265,6 +276,7 @@ class CheckoutController extends Controller
         if($data['errorCode']=="0"){
             $order->order_status = 'D';
             $order->save();
+            //add qty to the product
             return view('refund-success')->with([
                 'categories'=>$categories
             ]);

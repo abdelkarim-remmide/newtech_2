@@ -44,25 +44,39 @@
 					  <div class="panel-body">
 							<fieldset id="account">
 							  <div class="form-group required">
-								<label for="input-payment-firstname" class="control-label">Nom :</label>
-								<input type="text" class="form-control" id="input-payment-firstname" placeholder="Nom" value="{{old('nom')}}" name="nom" required>
+                                <label for="input-payment-firstname" class="control-label">Nom :</label>
+                                @if (auth()->user())
+                                <input type="text" class="form-control" id="input-payment-firstname" placeholder="Nom" value="{{auth()->user()->nom}}" name="nom" readonly>
+                                @else
+                                <input type="text" class="form-control" id="input-payment-firstname" placeholder="Nom" value="{{old('nom')}}" name="nom" required>
+                                @endif
+
 							  </div>
 							  <div class="form-group required">
-								<label for="input-payment-lastname" class="control-label">Prénom :</label>
+                                <label for="input-payment-lastname" class="control-label">Prénom :</label>
+                                @if (auth()->user())
+                                <input type="text" class="form-control" id="input-payment-lastname" placeholder="Prénom" value="{{auth()->user()->prenom}}" name="prenom" readonly>
+                                @else
 								<input type="text" class="form-control" id="input-payment-lastname" placeholder="Prénom" value="{{old('prenom')}}" name="prenom" required>
+                                @endif
+
 							  </div>
 							  <div class="form-group required">
                                 <label for="input-payment-email" class="control-label">Adresse e-mail :</label>
                                 @if (auth()->user())
                                 <input type="email" class="form-control" id="input-payment-email" placeholder="Adresse e-mail" value="{{auth()->user()->email}}" name="email" readonly>
                                 @else
-                                <input type="email" class="form-control" id="input-payment-email" placeholder="Adresse e-mail" value="{{old('email')}}" name="email">
+                                <input type="email" class="form-control" id="input-payment-email" placeholder="Adresse e-mail" value="{{old('email')}}" name="email" required>
                                 @endif
 
 							  </div>
 							  <div class="form-group required">
-								<label for="input-payment-telephone" class="control-label">Numéro de téléphone :</label>
+                                <label for="input-payment-telephone" class="control-label">Numéro de téléphone :</label>
+                                @if (auth()->user())
+                                <input type="text" class="form-control" id="input-payment-telephone" placeholder="Numéro de téléphone" value="{{auth()->user()->tel}}" name="tel" readonly>
+                                @else
 								<input type="text" class="form-control" id="input-payment-telephone" placeholder="Numéro de téléphone" value="{{old('tel')}}" name="tel" required>
+                                @endif
 							  </div>
 							</fieldset>
 						  </div>
@@ -112,7 +126,7 @@
 									<td class="text-center">Image</td>
 									<td class="text-left">Nom de produit</td>
 									<td class="text-left">Quantity</td>
-									<td class="text-right">Prix de l'unity</td>
+									<td class="text-right">Prix unitaire</td>
 									<td class="text-right">Total</td>
 								  </tr>
 								</thead>
@@ -129,7 +143,7 @@
                                             <button type="submit" data-toggle="tooltip" title="Update"
                                         class="btn btn-primary quantity-button" data-id="{{$item->__raw_id}}" data-productQuantity="{{ $item->product->quanity }}"><i
                                                     class="fa fa-clone"></i></button>
-                                        <button type="submit" data-toggle="tooltip" title="Remove" class="btn btn-danger" onClick="delete()"><i class="fa fa-times-circle"></i></button>
+                                        <button type="submit" data-toggle="tooltip" title="Remove" class="btn btn-danger" onClick="document.getElementById('delete-form').submit()"><i class="fa fa-times-circle"></i></button>
 
 
                                         </span></div></td>
@@ -141,12 +155,12 @@
 								<tfoot>
 								  <tr>
 									<td class="text-right" colspan="4"><strong>Sous-Total:</strong></td>
-									<td class="text-right">{{presentPrice(Cart::total())}}</td>
+									<td class="text-right"><strong class="nt-price">{{presentPrice(Cart::total())}}</strong></td>
 								  </tr>
 
 								  <tr>
 									<td class="text-right" colspan="4"><strong>Total:</strong></td>
-									<td class="text-right h4 text-success">{{presentPrice(Cart::total())}}</td>
+									<td class="text-right h4 text-success"><strong class="nt-price x2">{{presentPrice(Cart::total())}}</strong></td>
 								  </tr>
 								</tfoot>
 							  </table>
@@ -160,7 +174,20 @@
 						  <h4 class="panel-title"><i class="fa fa-pencil"></i> Valid votre commande</h4>
 						</div>
 						  <div class="panel-body">
-							<label class="control-label" for="confirm_agree">
+                            <p>Veuillez sélectionner le mode de paiement préféré à utiliser pour cette commande.</p>
+                            <div>
+
+                            <div class="radio custom">
+                                <label>
+                                  <input type="radio" checked="checked" name="payment" value="Cash on delivery"> <img src="{{asset('/image/cod.png')}}" height="40" width="40" > Paiement à la livraison</label>
+                              </div>
+
+                              <div class="radio custom">
+                                <label>
+                                  <input type="radio" name="payment" value="Cart CIB"> <img src="{{asset('/image/cib.png')}}" height="40" width="40" > Cart CIB</label>
+                              </div>
+                            </div>
+							<label class="control-label custom" for="confirm_agree">
 							  <input type="checkbox" value="1" required="" class="validate required" id="confirm_agree" name="confirm agree">
                               <span>J'accept les <a class="agree" href="#"><b>
                                 Conditions d'utilisation</b></a></span> </label>
@@ -168,7 +195,7 @@
                               <label><div class="g-recaptcha" data-sitekey="6Ldd-rAZAAAAAJHQGrVG15lTxouQV5JJy2bFcBWZ"></div></label>
 							<div class="buttons">
 							  <div class="pull-right">
-                                <button type="submit" class="btn btn-primary" id="make-payment" ><img src="{{asset('/image/cib.png')}}" height="25" width="25" >
+                                <button type="submit" class="btn btn-primary" id="make-payment" ><img src="{{asset('/image/cib.png')}}" class="hide" height="25" width="25" >
                                     Commander</button>
 							  </div>
 							</div>
@@ -196,17 +223,16 @@
 <script src='https://www.google.com/recaptcha/api.js'></script>
         <script>
             window.onload = function() {
-                var form = document.querySelector("main-form");
+                var form = document.querySelector("#main-form");
                 form.onsubmit = submitted.bind(form)
             }
-
+            $('input[name="payment"]').change(function (e){
+                $('#make-payment img').toggleClass("hide")
+            })
             function submitted(event) {
                 document.getElementById('make-payment').disabled=true
+            }
 
-            }
-            function delete() {
-                document.getElementById('delete-form').submit()
-            }
             (function () {
 
     const classname = document.querySelectorAll('.quantity-button')

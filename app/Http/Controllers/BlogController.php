@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Order;
+use App\Post;
 use App\Category;
+use Illuminate\Http\Request;
 
-
-class OrdersController extends Controller
+class BlogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,14 +15,7 @@ class OrdersController extends Controller
      */
     public function index()
     {
-
-        $categories = Category::whereNull('parent_id')->get();
-        $orders = auth()->user()->orders()->where('order_status','C')->with('products')->get(); // fix n + 1 issues
-
-        return view('order-history')->with([
-            'orders'=> $orders,
-            'categories'=>$categories
-        ]);
+        //
     }
 
     /**
@@ -44,7 +36,7 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
-
+        //
     }
 
     /**
@@ -53,19 +45,15 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show($slug)
     {
+        $post = Post::where('slug',$slug)->firstOrFail();
 
         $categories = Category::whereNull('parent_id')->get();
-        if(auth()->id() != $order->user_id){
-            return back()->withErrors("You don't have access to this page");
-        }
-        $products = $order->products;
-        return view('order-information')->with([
-            'order'=>$order,
-            'products'=>$products,
+        return view('blog-detail')->with([
+            'post'=>$post,
             'categories'=>$categories
-            ]);
+        ]);
     }
 
     /**

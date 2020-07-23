@@ -39,7 +39,7 @@
                             <td class="text-center">Image</td>
                             <td class="text-left">Nom de produit</td>
                             <td class="text-left">Quantity</td>
-                            <td class="text-right">Prix de l'unity</td>
+                            <td class="text-right">Prix unitaire</td>
                             <td class="text-right">Total</td>
                         </tr>
                     </thead>
@@ -91,13 +91,13 @@
                                 <td class="text-right">
                                     <strong>Sous-Total:</strong>
                                 </td>
-                                <td class="text-right">{{presentPrice(Cart::total())}}</td>
+                                <td class="text-right"><strong class="nt-price">{{presentPrice(Cart::total())}}</strong></td>
                             </tr>
                             <tr>
                                 <td class="text-right">
                                     <strong>Total:</strong>
                                 </td>
-                                <td class="text-right">{{presentPrice(Cart::total())}}</td>
+                                <td class="text-right"><strong class="nt-price x2">{{presentPrice(Cart::total())}}</strong></td>
                             </tr>
                         </tbody>
                     </table>
@@ -105,8 +105,8 @@
             </div>
 
             <div class="buttons">
-                <div class="pull-left"><a href="{{route('index')}}" class="btn btn-primary">Continuer vos achats</a></div>
-                <div class="pull-right"><a href="{{route('checkout.index')}}" class="btn btn-primary">Check-out</a></div>
+                <div class="pull-left"><a href="{{route('index')}}" class="btn btn-primary btn-prisonalise">Continuer vos achats</a></div>
+                <div class="pull-right"><a href="{{route('checkout.index')}}" class="btn btn-primary btn-prisonalise">Check-out</a></div>
             </div>
         </div>
         <!--Middle Part End -->

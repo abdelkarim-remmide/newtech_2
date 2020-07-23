@@ -26,7 +26,7 @@
 							<td style="width: 50%;" class="text-left"> <b>Numero de commande:</b> {{$order->id}}
 								<br>
                             <b>Date et l'heure de la transaction:</b> {{ $order->transation_date }}</td>
-							<td style="width: 50%;" class="text-left"> <b>Mode de paiment:</b> Cart CIB
+							<td style="width: 50%;" class="text-left"> <b>Mode de paiment:</b> {{$order->payment_gateway}}
 							 </td>
 						</tr>
 					</tbody>
@@ -34,7 +34,7 @@
 				<table class="table table-bordered table-hover">
 					<thead>
 						<tr>
-							<td style="width: 50%; vertical-align: top;" class="text-left">Shipping Address</td>
+							<td style="width: 50%; vertical-align: top;" class="text-left">Adresse de livraison</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -50,11 +50,11 @@
 					<table class="table table-bordered table-hover">
 						<thead>
 							<tr>
-								<td class="text-left">Product Image</td>
-								<td class="text-left">Product Name</td>
-								<td class="text-right">Quantity</td>
-								<td class="text-right">Price</td>
-								<td class="text-right">Total</td>
+                                <td class="text-center">Image</td>
+                                <td class="text-left">Nom de produit</td>
+                                <td class="text-left">Quantity</td>
+                                <td class="text-right">Prix unitaire</td>
+                                <td class="text-right">Total</td>
 								<td style="width: 20px;"></td>
 							</tr>
 						</thead>
@@ -80,16 +80,16 @@
 						<tfoot>
 							<tr>
 								<td colspan="3"></td>
-								<td class="text-right"><b>Sub-Total</b>
+								<td class="text-right"><b>Sous-Total</b>
 								</td>
-								<td class="text-right">{{$order->billing_subtotal}} DZD</td>
+								<td class="text-right"><strong class="nt-price">{{$order->billing_subtotal}} DZD</strong></td>
 								<td></td>
 							</tr>
 							<tr>
 								<td colspan="3"></td>
 								<td class="text-right"><b>Total</b>
 								</td>
-								<td class="text-right">{{$order->billing_total}} DZD</td>
+								<td class="text-right"><strong class="nt-price x2">{{$order->billing_total}} DZD</strong></td>
 								<td></td>
 							</tr>
 						</tfoot>
@@ -102,12 +102,12 @@
 			<!--Middle Part End-->
 			<!--Right Part Start -->
 			<aside class="col-sm-3 hidden-xs" id="column-right">
-				<h2 class="subtitle">Account</h2>
+				<h2 class="subtitle">Compte</h2>
 <div class="list-group">
 	<ul class="list-item">
-		<li><a href="{{ route('users.edit') }}">My Account</a>
+		<li><a href="{{ route('users.edit') }}">Mon compte</a>
         </li>
-    <li><a href="{{ route('orders.index') }}" >Order History</a>
+    <li><a href="{{ route('orders.index') }}" >Historique des commandes</a>
         </li>
 	</ul>
 </div>			</aside>

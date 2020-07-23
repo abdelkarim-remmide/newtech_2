@@ -20,17 +20,16 @@
                                 <div id="search0" class="search input-group form-group">
                                     <div class="select_category filter_type  icon-select hidden-sm hidden-xs">
                                         <select class="no-border" name="category_id">
-                                            <option value="0">All Categories</option>
-                                            <option value="78">Apparel</option>
-                                            <option value="77">Cables &amp; Connectors</option>
-                                            <option value="82">Cameras &amp; Photo</option>
-                                            <option value="80">Flashlights &amp; Lamps</option>
-                                            <option value="81">Mobile Accessories</option>
-                                            <option value="79">Video Games</option>
-                                            <option value="20">Jewelry &amp; Watches</option>
-                                            <option value="76">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Earings</option>
-                                            <option value="26">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wedding Rings</option>
-                                            <option value="27">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Men Watches</option>
+                                            <option value="0">Catégories</option>
+
+                                            @foreach ($categories as $category)
+                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                            @if (count($category->childCategory))
+                                            @foreach ($category->childCategory as $subcate)
+                                            <option value="{{$category->id}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$subcate->name}}</option>
+                                            @endforeach
+                                            @endif
+                                            @endforeach
                                         </select>
                                     </div>
 
@@ -58,11 +57,11 @@
                                   </span>
                                     <div class="shopcart-inner">
                                         <p class="text-shopping-cart">
-                                            My cart
+                                            Mon panier
                                         </p>
                                         @if (Cart::count() > 0)
                                         <span class="total-shopping-cart cart-total-full">
-                                        <span class="items_cart">{{ Cart::count() }}</span><span class="items_cart2"> item(s)</span><span class="items_carts"> - {{presentPrice(Cart::total())}}</span>
+                                        <span class="items_cart">{{ Cart::count() }}</span><span class="items_cart2"> article(s)</span><span class="items_carts"> - {{presentPrice(Cart::total())}}</span>
                                         </span>
                                         @endif
                                     </div>
@@ -119,7 +118,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                    <p class="text-right"> <a class="btn view-cart" href="{{ route('cart.index') }}"><i class="fa fa-shopping-cart"></i>View Cart</a>&nbsp;&nbsp;&nbsp; <a class="btn btn-mega checkout-cart" href="{{route('checkout.index')}}"><i class="fa fa-share"></i>Checkout</a>
+                                    <p class="text-right"> <a class="btn view-cart" href="{{ route('cart.index') }}"><i class="fa fa-shopping-cart"></i>Voir le panier</a>&nbsp;&nbsp;&nbsp; <a class="btn btn-mega checkout-cart" href="{{route('checkout.index')}}"><i class="fa fa-share"></i>Checkout</a>
                                         </p>
                                     </div>
                                 </li>
@@ -164,7 +163,7 @@
                                                         <span></span>
                                                         <span></span>
                                                     </div>
-                                                    All Categories
+                                                    Catégories
                                                 </div>
                                             </div>
                                         </div>
@@ -172,7 +171,7 @@
                                     <div class="navbar-header">
                                         <button type="button" id="show-verticalmenu" data-toggle="collapse" class="navbar-toggle">
                                             <i class="fa fa-bars"></i>
-                                            <span>  All Categories     </span>
+                                            <span>  Catégories     </span>
                                         </button>
                                     </div>
                                     <div class="vertical-wrapper" >
@@ -238,7 +237,7 @@
                                         <div class="container-mega">
                                             <ul class="megamenu" data-transition="slide" data-animationtime="250">
                                                 <li class="home hover">
-                                                    <a href="/">Home</a>
+                                                    <a href="/">Accueil</a>
 
                                                 </li>
                                                 <li class="">
@@ -258,7 +257,7 @@
 
                                                 </li>
                                                 <li class="">
-                                                    <a href="{{route('category.index',['category'=>'accessoire'])}}">Accessories</a>
+                                                    <a href="{{route('category.index',['category'=>'accessoire'])}}">Accessoires</a>
 
                                                 </li>
 
@@ -279,13 +278,13 @@
                     <div class="signin-w font-title hidden-sm hidden-xs">
                         <ul class="signin-link blank">
                             @guest
-                            <li class="log login"><i class="fa fa-lock"></i> <a class="link-lg" href="{{route('login')}}">Login </a> or <a href="{{route('register')}}">Register</a></li>
+                            <li class="log login"><i class="fa fa-lock"></i> <a class="link-lg" href="{{route('login')}}">S'identifier </a> ou <a href="{{route('register')}}">S'inscrire</a></li>
                             @else
-                        <li style="padding-right:10px"><a href="{{ route('users.edit') }}">My account</a><li>
+                        <li style="padding-right:10px"><a href="{{ route('users.edit') }}">Mon compte</a><li>
                             <li><a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Se déconnecter') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -297,7 +296,7 @@
                         </ul>
                     </div>
                     <div class="telephone hidden-xs hidden-sm hidden-md">
-                        <ul class="blank"> <li><a href="#"><i class="fa fa-truck"></i>track your order</a></li> <li><a href="#"><i class="fa fa-phone-square"></i>Hotline (+123)4 567 890</a></li> </ul>
+                        <ul class="blank"> <li><a href="#"><i class="fa fa-truck"></i>track your order</a></li> <li><a href="#"><i class="fa fa-phone-square"></i>(+213) 25215109</a></li> </ul>
                     </div>
 
 

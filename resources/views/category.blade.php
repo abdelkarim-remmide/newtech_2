@@ -15,7 +15,7 @@
 			<!--Left Part Start -->
 			<aside class="col-sm-4 col-md-3 content-aside" id="column-left">
 				<div class="module category-style">
-                	<h3 class="modtitle">Categories</h3>
+                	<h3 class="modtitle">Catégories</h3>
                 	<div class="modcontent">
                 		<div class="box-category">
                 			<ul id="cat_accordion" class="list-group">
@@ -73,14 +73,14 @@
                             </div>
                             <div class="short-by-show form-inline text-right col-md-7 col-sm-9 col-xs-12">
                                 <div class="form-group short-by">
-                                    <label class="control-label" for="input-sort">Sort By:</label>
+                                    <label class="control-label" for="input-sort">Trier par:</label>
                                     <select id="input-sort" class="form-control"
                                     onchange="location = this.value;">
                                         <option value="" @if (!request()->sort) selected="selected" @endif>Default</option>
-                                        <option value="a_z" @if (request()->sort == 'a_z') selected="selected" @endif>Name (A - Z)</option>
-                                        <option value="z_a" @if (request()->sort == 'z_a') selected="selected" @endif>Name (Z - A)</option>
-                                        <option value="low_high" @if (request()->sort == 'low_high') selected="selected" @endif>Price (Low &gt; High)</option>
-                                        <option value="high_low" @if (request()->sort == 'high_low') selected="selected" @endif>Price (High &gt; Low)</option>
+                                        <option value="a_z" @if (request()->sort == 'a_z') selected="selected" @endif>Nom (A - Z)</option>
+                                        <option value="z_a" @if (request()->sort == 'z_a') selected="selected" @endif>Nom (Z - A)</option>
+                                        <option value="low_high" @if (request()->sort == 'low_high') selected="selected" @endif>Prix (Min &gt; Max)</option>
+                                        <option value="high_low" @if (request()->sort == 'high_low') selected="selected" @endif>Prix (Max &gt; Min)</option>
 
                                     </select>
                                 </div>
@@ -115,13 +115,24 @@
                                     <div class="product-image-container second_img">
                                         <a href="{{ route('category.show',$product->slug) }}" target="_self" title="{{ $product->name }}">
                                             <img src="{{ productImage($product->image) }}" class="img-1 img-responsive" alt="image">
-                                            <img src="{{ productImage($product->image) }}" class="img-2 img-responsive" alt="image">
+                                            <img src="{{ productImage($product->image2) }}" class="img-2 img-responsive" alt="image">
                                         </a>
                                     </div>
                                     <div class="button-group so-quickview cartinfo--left">
-                                        <button type="button" class="addToCart btn-button" title="Add to cart" onclick="cart.add('60 ');">  <i class="fa fa-shopping-basket"></i>
-                                            <span>Add to cart </span>
+                                        @if ($product->quantity>0)
+                                <form action="{{ route('cart.store') }}" method="post">
+                                    @csrf
+
+                                    <input type="hidden" name="id" value="{{ $product->id }}">
+                                    <input type="hidden" name="quantity" value="1">
+
+                                    <input type="hidden" name="name" value="{{ $product->name }}">
+                                    <input type="hidden" name="price" value="{{ $product->price }}">
+                                        <button type="submit" class="addToCart btn-button" title="Acheter">  <i class="fa fa-shopping-basket"></i>
+                                            <span>Acheter </span>
                                         </button>
+                                </form>
+                                @endif
                                     </div>
                                 </div>
                                 <div class="right-block">

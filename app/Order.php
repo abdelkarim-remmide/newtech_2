@@ -9,7 +9,7 @@ class Order extends Model
     protected $fillable=[
         'user_id','billing_email','billing_nom','billing_prenom','billing_address',
         'billing_tel','billing_pay','billing_wilaya','billing_code_postal','billing_subtotal',
-        'billing_total','error','transation_date','transation_code'
+        'billing_total','error','transation_date','transation_code','payment_gateway'
     ];
 
     public function user()

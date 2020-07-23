@@ -47,7 +47,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-style">
                         <div class="infos-footer box-footer">
                             <div class="module">
-                                <h3 class="modtitle">Location</h3>
+                                <h3 class="modtitle">Emplacement</h3>
                                 <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12833.195146866652!2d2.8307129!3d36.4744989!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x7d3aee4edf8b7a9e!2sNew%20Tech%20Mek!5e0!3m2!1sfr!2sdz!4v1594084788347!5m2!1sfr!2sdz" style="width:100%;height:250px" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-style">
                         <div class="infos-footer box-footer">
                             <div class="module">
-                                <h3 class="modtitle">Contact Info</h3>
+                                <h3 class="modtitle">Informations de contact</h3>
                                 <ul>
                                     <li class="adres">Bab Dzair Blida Blida DZ، 09000</li>
                                     <li class="phone">+21325215109</li>
@@ -122,22 +122,22 @@
 
                         <div class="title-block">
                             <div class="page-heading font-title">
-                                Signup for Newsletter
+                                S'inscrire aux Newsletters
                             </div>
-                            <div class="promotext">We’ll never share your email address with a third-party. </div>
+                            <div class="promotext">Nous ne partagerons jamais votre adresse e-mail avec un tiers. </div>
                         </div>
 
                         <div class="block_content">
                             <form method="post" id="signup" name="signup" class="form-group form-inline signup send-mail">
                                 <div class="form-group">
                                     <div class="input-box">
-                                        <input type="email" placeholder="Your email address..." value=""
+                                        <input type="email" placeholder="Votre adresse email..." value=""
                                             class="form-control" id="txtemail" name="txtemail" size="55">
                                     </div>
                                     <div class="subcribe">
                                         <button class="btn btn-primary btn-default font-title" type="submit"
                                             onclick="return subscribe_newsletter();" name="submit">
-                                            Subscribe
+                                            Souscrire
                                         </button>
                                     </div>
                                 </div>
@@ -158,7 +158,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-md-7 col-sm-12 col-xs-12 copyright-w">
-                        <div class="copyright">Newtechmek © 2020 Demo Store. All Rights Reserved. Designed by <a href="http://www.opencartworks.com/" target="_blank">OpenCartWorks.Com</a>
+                        <div class="copyright">Newtechmek © 2020. All Rights Reserved.
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-5 col-sm-12 col-xs-12 payment-w">

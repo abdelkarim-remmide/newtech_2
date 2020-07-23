@@ -72,21 +72,23 @@ class UsersController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'tel' => 'required|string|max:15',
             'email' => 'required|string|email|max:255|unique:users,email,'.auth()->id(),
-            'password' => 'sometimes|nullable|string|min:6|confirmed',
         ]);
 
         $user = auth()->user();
-        $input = $request->except('password', 'password_confirmation');
+        $input = $request->except('old_password', 'new_password','new_confirm','email');
 
-        if (! $request->filled('password')) {
+        if (! $request->filled('old_password')) {
             $user->fill($input)->save();
 
             return back()->with('success_message', 'Profile updated successfully!');
         }
+        #TODO:
 
-        $user->password = bcrypt($request->password);
+        $user->password = bcrypt($request->new_password);
         $user->fill($input)->save();
 
         return back()->with('success_message', 'Profile (and password) updated successfully!');

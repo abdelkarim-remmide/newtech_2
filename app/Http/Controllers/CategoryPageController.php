@@ -70,12 +70,11 @@ class CategoryPageController extends Controller
         $categories = Category::whereNull('parent_id')->get();
         $mightAlsoLike = Product::where('slug','!=',$slug)->MightAlsoLike()->get();
         if ($product->quantity>setting('site.stock_threshold')){
-
-            $stocklevel = 'In Stock';
+            $stocklevel = 'En stock';
         }elseif ($product->quantity<=setting('site.stock_threshold') && $product->quantity>0) {
-            $stocklevel = 'Low Stock';
+            $stocklevel = 'Stock faible';
         }else{
-            $stocklevel = 'Not Available';
+            $stocklevel = 'Indisponible';
         }
         return view('product')->with([
             'product'=>$product,

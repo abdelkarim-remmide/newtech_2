@@ -46,12 +46,12 @@
 			<!--Middle Part End-->
 			<!--Right Part Start -->
 			<aside class="col-sm-3 hidden-xs" id="column-right">
-				<h2 class="subtitle">Account</h2>
+				<h2 class="subtitle">Compte</h2>
 <div class="list-group">
 	<ul class="list-item">
-		<li><a href="{{ route('users.edit') }}">My Account</a>
+		<li><a href="{{ route('users.edit') }}">Mon compte</a>
         </li>
-    <li><a href="{{ route('orders.index') }}" >Order History</a>
+    <li><a href="{{ route('orders.index') }}" >Historique des commandes</a>
         </li>
 	</ul>
 </div>			</aside>

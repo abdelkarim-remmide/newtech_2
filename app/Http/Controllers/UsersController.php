@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
 use App\Category;
 
@@ -76,6 +77,9 @@ class UsersController extends Controller
             'prenom' => 'required|string|max:255',
             'tel' => 'required|string|max:15',
             'email' => 'required|string|email|max:255|unique:users,email,'.auth()->id(),
+            'old_password' => ['sometimes','nullable','string', new MatchOldPassword],
+            'new_password' => 'required_with:old_password|string|min:7',
+            'new_confirm' => 'same:new_password'
         ]);
 
         $user = auth()->user();
@@ -86,7 +90,6 @@ class UsersController extends Controller
 
             return back()->with('success_message', 'Profile updated successfully!');
         }
-        #TODO:
 
         $user->password = bcrypt($request->new_password);
         $user->fill($input)->save();

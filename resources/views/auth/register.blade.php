@@ -8,7 +8,19 @@
         <li>Compte</li>
         <li>S'inscrire</li>
     </ul>
-
+    @if (session()->has('success_message'))
+            <div class="alert alert-success">
+                {{ session()->get('success_message') }}
+            </div>
+            @endif @if(count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
     <div class="row">
         <div id="content" class="col-sm-12">
             <h2 class="title">Créer un compte</h2>
@@ -30,25 +42,45 @@
                     <div class="form-group required">
                         <label class="col-sm-2 control-label" for="input-firstname">Nom</label>
                         <div class="col-sm-10">
-                            <input type="text" name="nom" value="" placeholder="Nom" id="input-firstname" class="form-control @error('nom') is-invalid @enderror">
+                            <input type="text" name="nom" value="{{ old('nom') }}" placeholder="Nom" id="input-firstname" class="form-control @error('nom') is-invalid @enderror">
+                            @error('nom')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                         </div>
                     </div>
                     <div class="form-group required">
                         <label class="col-sm-2 control-label" for="input-lastname">Prenom</label>
                         <div class="col-sm-10">
-                            <input type="text" name="prenom" value="" placeholder="Prenom" id="input-lastname" class="form-control @error('prenom') is-invalid @enderror">
+                            <input type="text" name="prenom" value="{{ old('prenom') }}" placeholder="Prenom" id="input-lastname" class="form-control @error('prenom') is-invalid @enderror">
+                            @error('prenom')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                         </div>
                     </div>
                     <div class="form-group required">
                         <label class="col-sm-2 control-label" for="input-email">Adresse e-mail</label>
                         <div class="col-sm-10">
-                            <input type="email" name="email" value="" placeholder="Adresse e-mail" id="input-email" class="form-control @error('email') is-invalid @enderror">
+                            <input type="email" name="email" value="{{ old('email') }}" placeholder="Adresse e-mail" id="input-email" class="form-control @error('email') is-invalid @enderror">
+                            @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                         </div>
                     </div>
                     <div class="form-group required">
                         <label class="col-sm-2 control-label" for="input-telephone">Numéro de téléphone</label>
                         <div class="col-sm-10">
-                            <input type="tel" name="tel" value="" placeholder="Numéro de téléphone" id="input-telephone" class="form-control @error('tel') is-invalid @enderror">
+                            <input type="tel" name="tel" value="{{ old('tel') }}" placeholder="Numéro de téléphone" id="input-telephone" class="form-control @error('tel') is-invalid @enderror">
+                            @error('tel')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                         </div>
                     </div>
                 </fieldset>
@@ -57,7 +89,12 @@
                     <div class="form-group required">
                         <label class="col-sm-2 control-label" for="input-password">Mot de passe</label>
                         <div class="col-sm-10">
-                            <input type="password" name="password" value="" placeholder="Mot de passe" id="input-password" class="form-control @error('password') is-invalid @enderror">
+                        <input type="password" name="password" value="" placeholder="Mot de passe" id="input-password" class="form-control @error('password') is-invalid @enderror">
+                            @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                         </div>
                     </div>
                     <div class="form-group required">

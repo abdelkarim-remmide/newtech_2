@@ -59,8 +59,6 @@ class CheckoutController extends Controller
             return back()->withErrors('Sorry! One of the items in your cart is no longer avialble.');
         }
 
-
-
         $order = $this->addToOrdersTables($request,null);
 
         if($order->payment_gateway=="Cart CIB"){
@@ -104,6 +102,8 @@ class CheckoutController extends Controller
                 return back()->withErrors('Desole i y avai une error avec le system de payment.');
             }
         }
+        $order->order_status = 'C';
+        $order->save();
         $this->decreaseQuantities();
         Cart::destroy();
         return redirect()->route('ordersstatus.show', ['order' => $order->id]);
@@ -126,7 +126,11 @@ class CheckoutController extends Controller
         $order = Order::where('id',$id)->firstOrFail();
 
         $products = $order->products;
-        $pdf = PDF::loadView('pdf', compact(['order']));
+        $data=[
+            'order'=>$order,
+            'products'=>$products
+        ];
+        $pdf = PDF::loadView('pdf', $data);
         return $pdf->download('invoice.pdf');
     }
 
@@ -205,64 +209,73 @@ class CheckoutController extends Controller
     public function edit($id)
     {
         $order = Order::where('id',$id)->firstOrFail();
-        if(!$order->order_status == 'E'){
-
+        if($order->order_status != 'E'){
+            abort(404);
         }
-
         $categories = Category::whereNull('parent_id')->get();
         $url = "https://test.satim.dz/payment/rest/register.do";
-        /*$response = Http::post("https://40704a77-8413-4455-a205-cb872b330713.mock.pstmn.io/confirm",[
+        $response = Http::post("https://40704a77-8413-4455-a205-cb872b330713.mock.pstmn.io/confirm",[
             'orderId' => $order->transation_code,
             'language' => 'fr',
             'userName' => 'newtech2018',
             'password' => 'satim120',
-        ]);*/
+        ]);
 
-        //$data = $response->json();
-        $data=array(
-            'errorCode'=>"0",
-            'params'=>[
-                'respCode'=>"00",
+        $data = $response->json();
 
-            ],
-            'orderStatus'=>'2',
-            'approvalCode'=>"00"
-        );
-        if($data['errorCode']=="0" && $data['params']['respCode']=="00" && $data['orderStatus']=="2"){
-            $order->order_status = 'C';
-            $order->approvalCode = $data['approvalCode'];
-            $order->respCode = $data['params']['respCode'];
-            $order->save();
-            $products = $order->products;
-            return view('order-status')->with([
-                'data'=>$data,
-                'order'=>$order,
-                'products'=>$products,
-                'categories'=>$categories
-            ]);
-        }elseif ($data['errorCode']=="0" && $data['params']['respCode']=="00" && $data['orderStatus']=="3"){
-            $order->order_status = 'R';
-            $order->respCode = $data['params']['respCode'];
-            $order->save();
-            return view('order-rejeter')->with([
-                'categories'=>$categories
-            ]);
-        }else{
-            $order->order_status = 'F';
-            $order->respCode = $data['params']['respCode'];
-            $order->save();
-            return view('order-fail')->with([
-                'data'=>$data,
-                'categories'=>$categories
-            ]);
+        if($response->successful()){
+            if($data['errorCode']=="0" && $data['params']['respCode']=="00" && $data['orderStatus']=="2"){
+                $order->order_status = 'C';
+                $order->approvalCode = $data['approvalCode'];
+                $order->respCode = $data['params']['respCode'];
+                $order->save();
+                $products = $order->products;
+                return view('order-status')->with([
+                    'data'=>$data,
+                    'order'=>$order,
+                    'products'=>$products,
+                    'categories'=>$categories
+                ]);
+            }elseif ($data['errorCode']=="0" && $data['params']['respCode']=="00" && $data['orderStatus']=="3"){
+                $order->order_status = 'R';
+                $order->respCode = $data['params']['respCode'];
+                $order->save();
+                return view('order-rejeter')->with([
+                    'categories'=>$categories
+                ]);
+            }else{
+                $order->order_status = 'F';
+                $order->respCode = $data['params']['respCode'];
+                $order->save();
+                return view('order-fail')->with([
+                    'data'=>$data,
+                    'categories'=>$categories
+                ]);
+            }
         }
+        $data=[
+            'actionCodeDescription'=>'Il yavais une erreur lorsque la communication avec le serveur contacter l\'adminstrateur pour plus d\'information'
+        ];
+        return view('order-fail')->with([
+            'data'=>$data,
+            'categories'=>$categories
+        ]);
+    }
+
+    public function fail()
+    {
+        $categories = Category::whereNull('parent_id')->get();
+        return view('order-fail')->with([
+            'data'=>$data,
+            'categories'=>$categories
+        ]);
     }
 
     public function refund($id)
     {
         $order = Order::where('id',$id)->firstOrFail();
-        if(!$order->order_status == 'C'){
-
+        if($order->order_status != 'C'){
+            abort(403);
         }
         $categories = Category::whereNull('parent_id')->get();
         $url = "https://test.satim.dz/payment/rest/refund.do";
@@ -273,19 +286,28 @@ class CheckoutController extends Controller
             'password' => 'satim120',
         ]);
         $data = $response->json();
-        if($data['errorCode']=="0"){
-            $order->order_status = 'D';
-            $order->save();
-            //add qty to the product
-            return view('refund-success')->with([
-                'categories'=>$categories
-            ]);
-        }else{
-            return view('refund-fail')->with([
-                'data'=>$data,
-                'categories'=>$categories
-            ]);
+        if($response->successful()){
+            if($data['errorCode']=="0"){
+                $order->order_status = 'D';
+                $order->save();
+                //add qty to the product
+                $products=$order->products;
+                foreach ($products as $product) {
+                    $item = Product::where('id',$product->id)->firstOrFail();
+                    $item->quantity=$item->quantity+$product->pivot->quantity;
+                    $item->save();
+                }
+                return view('refund-success')->with([
+                    'categories'=>$categories
+                ]);
+            }
         }
+
+        return view('refund-fail')->with([
+            'data'=>$data,
+            'categories'=>$categories
+        ]);
+
     }
 
     /**

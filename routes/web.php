@@ -25,21 +25,18 @@ Route::middleware('auth')->group(function () {
 Route::get('/guestcheckout', 'CheckoutController@index')->name('guestcheckout.index');
 Route::get('/order/{order}', 'OrdersController@show')->name('ordersstatus.show');
 Route::get('/confirm/{order}', 'CheckoutController@edit')->name('guestcheckout.edit');
-Route::get('/refund/{order}', 'CheckoutController@edit')->name('guestcheckout.refund');
+Route::get('/refund/{order}', 'CheckoutController@refund')->name('guestcheckout.refund');
 Route::post('/checkout', 'CheckoutController@store')->name('checkout.store');
 Route::get('/cart', 'CartController@index')->name('cart.index');
 Route::get('/sendmail/{id}', 'CheckoutController@sendEmail')->name('sendmail');
-Route::get('/downloadPDF/{id}','CheckoutController@downloadPDF');
+Route::get('/downloadPDF/{id}','CheckoutController@downloadPDF')->name('downloadPDF');
 Route::post('/cart', 'CartController@store')->name('cart.store');
 Route::delete('/cart/{product}', 'CartController@destroy')->name('cart.destroy');
 Route::patch('/cart/{product}', 'CartController@update')->name('cart.update');
 Route::get('/product/{product}', 'CategoryPageController@show')->name('category.show');
 Route::get('/post/{post}', 'BlogController@show')->name('blog.show');
-
-
-
-/*Route::get('/checkout', 'checkout');
-Route::get('/thankyou', 'thankyou');*/
+Route::get('/blog', 'BlogController@index')->name('blog.index');
+Route::get('/fail', 'CheckoutController@fail')->name('checkout.fail');
 
 
 

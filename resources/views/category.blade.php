@@ -7,8 +7,8 @@
 	<!-- Main Container  -->
 	<div class="main-container container">
 		<ul class="breadcrumb">
-			<li><a href="#"><i class="fa fa-home"></i></a></li>
-			<li><a href="#">{{$categoryName}}</a></li>
+			<li><a href="/"><i class="fa fa-home"></i></a></li>
+			<li>{{$categoryName}}</li>
 		</ul>
 
 		<div class="row">

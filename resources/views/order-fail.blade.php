@@ -25,7 +25,6 @@
 					<tbody>
 						<tr>
                             <td style="width: 50%;" class="text-left">
-                                {{$data}}
                                 <b>@if (!empty($data['params']['respCode_desc']))
                                     {{ $data['params']['respCode_desc'] }}
                                 @else

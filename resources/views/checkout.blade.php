@@ -29,7 +29,7 @@
             </div>
         @endif
 		<div class="row">
-            <form action="{{route('checkout.store')}}" id="main-form" method="POST">
+            <form action="{{route('checkout.store')}}" name="theform" id="main-form" method="POST">
                 @csrf
 			<!--Middle Part Start-->
 			<div id="content" class="col-sm-12">
@@ -182,21 +182,30 @@
                                   <input type="radio" checked="checked" name="payment" value="Cash on delivery"> <img src="{{asset('/image/cod.png')}}" height="40" width="40" > Paiement à la livraison</label>
                               </div>
 
-                              <div class="radio custom">
+                              <div class="radio custom" style="padding-left: 10px">
                                 <label>
                                   <input type="radio" name="payment" value="Cart CIB"> <img src="{{asset('/image/cib.png')}}" height="40" width="40" > Cart CIB</label>
                               </div>
                             </div>
 							<label class="control-label custom" for="confirm_agree">
-							  <input type="checkbox" value="1" required="" class="validate required" id="confirm_agree" name="confirm agree">
-                              <span>J'accept les <a class="agree" href="#"><b>
+							  <input type="checkbox"  required="" class="validate required" id="confirm_agree" name="confirm agree">
+                            <span>J'accept les <a class="agree" target="_blank" href="{{ asset('terms/ANNEXE-1.pdf') }}"><b>
                                 Conditions d'utilisation</b></a></span> </label>
                                 <br>
-                              <label><div class="g-recaptcha" data-sitekey="6Ldd-rAZAAAAAJHQGrVG15lTxouQV5JJy2bFcBWZ"></div></label>
+                              <label><div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
+                                <div class="col-md-12 pull-center">
+                                    {!! app('captcha')->display(['data-callback' => 'onReCaptchaSuccess']) !!}
+                                    @if ($errors->has('g-recaptcha-response'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div></label>
 							<div class="buttons">
 							  <div class="pull-right">
                                 <button type="submit" class="btn btn-primary" id="make-payment" ><img src="{{asset('/image/cib.png')}}" class="hide" height="25" width="25" >
-                                    Commander</button>
+                                    Acheter</button>
 							  </div>
 							</div>
 						  </div>
@@ -220,19 +229,57 @@
     @endsection
     @section('extra-js')
     <script src="{{ asset('js/app.js') }}"></script>
-<script src='https://www.google.com/recaptcha/api.js'></script>
+    {!! NoCaptcha::renderJs() !!}
         <script>
+
+            var recaptchaStatus=0
             window.onload = function() {
                 var form = document.querySelector("#main-form");
+
                 form.onsubmit = submitted.bind(form)
+                var $recaptcha = document.querySelector('#g-recaptcha-response');
+
+                if($recaptcha) {
+                    $recaptcha.setAttribute("required", "required");
+                }
             }
             $('input[name="payment"]').change(function (e){
                 $('#make-payment img').toggleClass("hide")
             })
+            function onReCaptchaSuccess() {
+                recaptchaStatus=1
+                checkform()
+            }
             function submitted(event) {
                 document.getElementById('make-payment').disabled=true
             }
+            document.getElementById("input-payment-firstname").addEventListener("keyup", checkform)
+            document.getElementById("input-payment-lastname").addEventListener("keyup", checkform)
+            document.getElementById("input-payment-email").addEventListener("keyup", checkform)
+            document.getElementById("input-payment-telephone").addEventListener("keyup", checkform)
+            document.getElementById("input-payment-address-1").addEventListener("keyup", checkform)
+            document.getElementById("input-payment-city").addEventListener("keyup", checkform)
+            document.getElementById("input-payment-postcode").addEventListener("keyup", checkform)
+            document.getElementById("confirm_agree").addEventListener("change", checkform)
 
+            document.getElementById('make-payment').disabled=true
+
+            function checkform()
+            {
+                firstName=document.getElementById("input-payment-firstname").value
+                lastName=document.getElementById("input-payment-lastname").value
+                email=document.getElementById("input-payment-email").value
+                tel=document.getElementById("input-payment-telephone").value
+                address=document.getElementById("input-payment-address-1").value
+                city=document.getElementById("input-payment-city").value
+                postCode=document.getElementById("input-payment-postcode").value
+                confirmAgree=document.getElementById("confirm_agree").checked
+
+                if(firstName && lastName && email && tel && address && city && postCode && confirmAgree && recaptchaStatus){
+                    document.getElementById('make-payment').disabled =false
+                }
+                else document.getElementById('make-payment').disabled = true
+            }
             (function () {
 
     const classname = document.querySelectorAll('.quantity-button')

@@ -9,17 +9,17 @@
 			<li><a href="/"><i class="fa fa-home"></i></a></li>
 			<li>Infromation de la commande</li>
         </ul>
-        <img src="/image/catalog/logo.png" class="print" alt="" srcset="">
+        <img src="{{asset('/image/catalog/logo.png')}}" class="print" alt="" srcset="">
 
 		<div class="row">
 			<!--Middle Part Start-->
 			<div id="content" class="col-sm-9">
 				<h2 class="title">Infromation de la commande</h2>
                 <div class="text-center no-print">
-                    <ul style="display:flex">
-                        <li style="padding-right: 10px"><a href="{{action('CheckoutController@downloadPDF', $order->id)}}" id="cmd">Télécharger</a></li>
-                        <li style="padding-right: 10px"><a href="javascript:window.print()">Imprimer</a></li>
-                    <li><a href="{{ route('sendmail',$order->id) }}">Envoyer par mail</a></li>
+                    <ul style="display:flex;padding: 10px 5px;">
+                        <li style="padding-right: 10px"><a href="{{route('downloadPDF', $order->id)}}" target="" id="cmd"><i class="fa fa-download"></i> Télécharger</a></li>
+                        <li style="padding-right: 10px"><a href="javascript:window.print()"><i class="fa fa-print"></i> Imprimer</a></li>
+                    <li><a href="{{ route('sendmail',$order->id) }}"><i class="fa fa-mail-forward"></i> Envoyer par mail</a></li>
                     </ul>
                 </div>
 				<table class="table table-bordered table-hover">
@@ -115,7 +115,6 @@
 
 
             </div>
-            <div id="editor"></div>
 			<!--Middle Part End-->
 			<!--Right Part Start -->
 			<aside class="col-sm-3 hidden-xs no-print" id="column-right">
@@ -137,23 +136,5 @@
     @endsection
 
     @section('extra-js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
-    <script>
-        var doc = new jsPDF();
-        var specialElementHandlers = {
-            '#editor': function (element, renderer) {
-                return true;
-            }
-        };
 
-        $('#cmd').click(function () {
-            doc.fromHTML($('#content').html(), 15, 15, {
-                'width': 170,
-                    'elementHandlers': specialElementHandlers
-            });
-            doc.save('sample-file.pdf');
-        });
-
-        // This code is collected but useful, click below to jsfiddle link.
-    </script>
     @endsection

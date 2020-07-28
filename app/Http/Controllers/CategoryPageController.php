@@ -87,19 +87,25 @@ class CategoryPageController extends Controller
     public function search(Request $request)
     {
         $request->validate([
-            'query' => 'required|min:3',
+            'q' => 'required|min:3',
         ]);
 
-        $query = $request->input('query');
+        $query = $request->input('q');
 
         // $products = Product::where('name', 'like', "%$query%")
         //                    ->orWhere('details', 'like', "%$query%")
         //                    ->orWhere('description', 'like', "%$query%")
         //                    ->paginate(10);
 
-        $products = Product::search($query)->paginate(10);
+        $categories = Category::whereNull('parent_id')->get();
+        $products = Product::search($query)->paginate(15);
 
-        return view('search-results')->with('products', $products);
+        return view('search-results')->with([
+            'products' => $products,
+
+            'categories'=>$categories
+
+            ]);
     }
 
     public function searchAlgolia(Request $request)

@@ -33,7 +33,7 @@ class CheckoutRequest extends FormRequest
             "code_postal"=>"required",
             "tel"=>"required",
             "email"=>$emailValidation,
-
+            'g-recaptcha-response' => 'required|captcha'
         ];
     }
 
@@ -41,6 +41,10 @@ class CheckoutRequest extends FormRequest
     {
         return [
             'email.unique' => 'You already have have acount with this email, please <a href="/login">login</a> to continue',
+            'g-recaptcha-response' => [
+                'required' => 'Please verify that you are not a robot.',
+                'captcha' => 'Captcha error! try again later or contact site admin.',
+            ],
         ];
     }
 }

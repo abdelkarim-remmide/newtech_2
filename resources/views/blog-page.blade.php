@@ -1,4 +1,3 @@
-
 @extends('layout')
 @section('content')
 
@@ -7,13 +6,13 @@
 	<div class="main-container container">
 		<ul class="breadcrumb">
 			<li><a href="/"><i class="fa fa-home"></i></a></li>
-        <li><a href="{{ route('blog.index') }}">Blog</a></li>
-			<li>{{$post->title}}</li>
+			<li>Blog</li>
+
 		</ul>
 
 		<div class="row">
 			<!--Left Part Start -->
-            <aside class="col-md-3 col-sm-4 col-xs-12 content-aside left_column " id="column-left">
+			<aside class="col-md-3 col-sm-4 col-xs-12 content-aside left_column " id="column-left">
 
                 <div class="module product-simple">
                     <h3 class="modtitle">
@@ -62,7 +61,6 @@
                     </div>
                 </div>
 
-
                 <div class="module banner-left hidden-xs ">
                     <div class="banner-sidebar banners">
                       <div>
@@ -73,34 +71,73 @@
                     </div>
                 </div>
             </aside>
-            <!--Left Part End -->
+			<!--Left Part End -->
 
 			<!--Middle Part Start-->
 			<div id="content" class="col-md-9 col-sm-8">
-				<div class="article-info">
-					<div class="blog-header">
-						<h3>{{$post->title}}</h3>
-					</div>
-					<div class="article-sub-title">
-						<span class="article-author">Publier par: <a href="#"> {{$post->user}}</a></span>
-						<span class="article-date">Date de création: {{$post->created_at}}</span>
-					</div>
-					<div class="form-group">
-						<a href="{{ productImage($post->image) }}" class="image-popup"><img src="{{ productImage($post->image) }}" alt="{{$post->title}}"></a>
-					</div>
-
-					<div class="article-description">
-						{!! $post->body !!}
-					</div>
+				<div class="blog-header">
+					<h3>Notre blog</h3>
 
 				</div>
+				<div class="blog-category clearfix">
 
-			</div>
 
+                    <div class="blog-listitem row">
+                        @if (count($posts))
+                        @foreach ($posts as $post)
+                        <div class="blog-item col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="blog-item-inner clearfix">
+                                <div class="itemBlogImg clearfix">
+                                    <div class="article-image">
+                                        <div>
+                                            <a class="popup-gallery" href="{{ productImage($post->image) }}">
+                                                <img src="{{ productImage($post->image) }}" alt="{{$post->title}}" />
+                                            </a>
+                                        </div>
+                                        <div class="article-date">
+                                            <div class="date">  <span class="article-date">
+                                                <b>{{$post->created_at->format('j')}}</b>
+                                                {{$post->created_at->format('F')}}
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="itemBlogContent clearfix ">
+                                    <div class="blog-content">
+                                        <div class="article-title font-title">
+                                            <h4><a href="{{ route('blog.show',$post->slug) }}">{{$post->title}}</a></h4>
+                                        </div>
+                                        <div class="blog-meta"> <span class="author"><i class="fa fa-user"></i><span>Publier par </span>{{$post->user}}</span>
+                                        </div>
+                                        <p class="article-description">{!! $post->excerpt !!}</p>
+                                        <div class="readmore">  <a class="btn-readmore font-title" href="{{ route('blog.show',$post->slug) }}"><i class="fa fa-caret-right"></i>Lire la suite</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                        @else
+                            <div class="text-center">No post</div>
+                        @endif
 
-		</div>
+                    </div>
+                    <div class="product-filter product-filter-bottom filters-panel clearfix">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div></div>
+                            </div>
+                            @if (count($posts))
+                            <div class="text-center box-pagination">{{ $posts->appends(request()->input())->links() }}</div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 		<!--Middle Part End-->
 	</div>
 	<!-- //Main Container -->
 
-@endsection
+    @endsection

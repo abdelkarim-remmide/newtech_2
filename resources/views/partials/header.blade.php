@@ -16,7 +16,7 @@
                     <div class="search-header-w">
                         <div class="icon-search hidden-lg hidden-md hidden-sm"><i class="fa fa-search"></i></div>
                         <div id="sosearchpro" class="sosearchpro-wrapper so-search ">
-                            <form method="GET" action="index.html">
+                        <form method="GET" action="{{route('search')}}">
                                 <div id="search0" class="search input-group form-group">
                                     <div class="select_category filter_type  icon-select hidden-sm hidden-xs">
                                         <select class="no-border" name="category_id">
@@ -33,12 +33,11 @@
                                         </select>
                                     </div>
 
-                                    <input class="autosearch-input form-control" type="text" value="" size="50" autocomplete="off" placeholder="Keyword here..." name="search">
+                                <input class="autosearch-input form-control" type="text" value="{{ request()->input('q') }}" size="50" autocomplete="off" placeholder="Keyword here..." name="q">
                                     <span class="input-group-btn">
-                                    <button type="submit" class="button-search btn btn-primary" name="submit_search"><i class="fa fa-search"></i></button>
+                                    <button type="submit" class="button-search btn btn-primary"><i class="fa fa-search"></i></button>
                                     </span>
                                 </div>
-                                <input type="hidden" name="route" value="product/search" />
                             </form>
                         </div>
                     </div>
@@ -296,7 +295,7 @@
                         </ul>
                     </div>
                     <div class="telephone hidden-xs hidden-sm hidden-md">
-                        <ul class="blank"> <li><a href="#"><i class="fa fa-truck"></i>track your order</a></li> <li><a href="#"><i class="fa fa-phone-square"></i>(+213) 25215109</a></li> </ul>
+                        <ul class="blank"> <!--<li><a href="#"><i class="fa fa-truck"></i>track your order</a></li>--> <li><a href="#"><i class="fa fa-phone-square"></i>(+213) 25215109</a></li> </ul>
                     </div>
 
 

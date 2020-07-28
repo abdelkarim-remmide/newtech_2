@@ -105,8 +105,7 @@
                     </div>
                 </fieldset>
                 <div class="buttons">
-                    <div class="pull-right">I have read and agree to the <a href="#" class="agree"><b>Pricing Tables</b></a>
-                        <input class="box-checkbox" type="checkbox" name="agree" value="1"> &nbsp;
+                    <div class="pull-right">
                         <input type="submit" value="Continue" class="btn btn-primary">
                     </div>
                 </div>

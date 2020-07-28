@@ -1,33 +1,43 @@
 
 @component('mail::message')
-# Order Received
+# Ordre reçu
 
-Thank you for your order.
+Nous vous remercions de votre commande.
 
-**Order ID:** {{ $order->id }}
+**Numéro de commande:** {{ $order->id }}
 
-**Order Email:** {{ $order->billing_email }}
+**L'identifiant de la transaction:** {{ $order->transation_code }}
 
-**Order Name:** {{ $order->billing_nom }}
+**Date et l'heure de la transaction:** {{ $order->transation_date }}
 
-**Order Total:** ${{ round($order->billing_total / 100, 2) }}
+**Mode de paiment:** {{$order->payment_gateway}}
 
-**Items Ordered**
+**Numero d'autorisation:** {{ $order->approvalCode }}
+
+**Nom de commandant:** {{$order->billing_nom}} {{$order->billing_prenom}}
+
+**Address de livraison:** {{$order->billing_address}}
+
+**Wilaya de livraison:** {{$order->billing_wilaya}} , {{$order->billing_pay}}
+
+**Total:** {{ $order->billing_total }} DA
+
+**Les articles commandés**
 
 @foreach ($order->products as $product)
-Name: {{ $product->name }} <br>
-Price: ${{ round($product->price / 100, 2)}} <br>
-Quantity: {{ $product->pivot->quantity }} <br>
+Nom: {{ $product->name }} <br>
+Prix: {{ $product->price }} DA <br>
+Quantité: {{ $product->pivot->quantity }} <br>
 @endforeach
 
-You can get further details about your order by logging into our website.
+Vous pouvez obtenir plus de détails sur votre commande en vous connectant à notre site Web.
 
 @component('mail::button', ['url' => config('app.url'), 'color' => 'green'])
-Go to Website
+Aller sur notre site Internet
 @endcomponent
 
-Thank you again for choosing us.
+Merci encore de nous avoir choisis.
 
-Regards,<br>
-{{ config('app.name') }}
+Cordialement,<br>
+NewTechMek
 @endcomponent

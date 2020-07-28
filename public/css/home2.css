@@ -8454,3 +8454,27 @@ footer .copyright a {
         display: block !important;
     }
 }
+
+.bg-gray{
+    background: #f7f7f7;
+}
+
+.bg-gray  .custom-slidercates.so-categories .cat-wrap .content-box,
+.bg-gray .products-list.grid .product-layout .product-item-container .right-block,
+.bg-gray .products-list.grid .product-layout .product-item-container{
+    background: white !important;
+}
+
+
+.typeheader-2 .shopping_cart .btn-shopping-cart .top_cart .icon-c,
+.typefooter-2 .footer-top,
+.typeheader-2 #sosearchpro .search button,
+.typefooter-2 .newsletter-footer1 .newsletter .block_content form.signup .subcribe button{
+    background-color: #e62e04;
+}
+
+.typeheader-2 #sosearchpro .search button:hover,
+.typefooter-2 .newsletter-footer1 .newsletter .block_content form.signup .subcribe button:hover{
+    background-color: #e62e04;
+}
+

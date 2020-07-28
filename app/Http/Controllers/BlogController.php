@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\Category;
+use App\Product;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -15,7 +16,16 @@ class BlogController extends Controller
      */
     public function index()
     {
-        //
+        $pagination=9;
+        $posts=Post::orderBy('created_at')->paginate($pagination);
+
+        $categories = Category::whereNull('parent_id')->get();
+        $mightAlsoLike = Product::MightAlsoLike4()->get();
+        return view('blog-page')->with([
+            'posts'=>$posts,
+            'mightAlsoLike'=>$mightAlsoLike,
+            'categories'=>$categories
+        ]);
     }
 
     /**
@@ -50,8 +60,11 @@ class BlogController extends Controller
         $post = Post::where('slug',$slug)->firstOrFail();
 
         $categories = Category::whereNull('parent_id')->get();
+
+        $mightAlsoLike = Product::MightAlsoLike4()->get();
         return view('blog-detail')->with([
             'post'=>$post,
+            'mightAlsoLike'=>$mightAlsoLike,
             'categories'=>$categories
         ]);
     }

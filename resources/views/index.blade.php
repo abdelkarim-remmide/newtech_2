@@ -5,7 +5,7 @@
 
 
 <!-- Main Container  -->
-<div class="main-container">
+<div class="main-container bg-gray">
     <div id="content">
         <div class="module sohomepage-slider ">
             <div class="yt-content-slider"  data-rtl="yes" data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="0" data-items_column0="1" data-items_column1="1" data-items_column2="1"  data-items_column3="1" data-items_column4="1" data-arrows="no" data-pagination="yes" data-lazyload="yes" data-loop="no" data-hoverpause="yes">
@@ -96,7 +96,7 @@
             <div class="banners banners1">
                 <div class="banner">
                     <a href="#">
-                        <img src="{{asset('/image/catalog/banners/id2-banner1.jpg')}}" alt="image">
+                        <img src="{{asset('/image/banner.png')}}" alt="image">
                     </a>
                 </div>
             </div>

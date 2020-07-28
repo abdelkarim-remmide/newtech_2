@@ -40,7 +40,7 @@
                                 @endif </td>
 								<td class="text-center">{{ $order->transation_date }}</td>
 								<td class="text-right">{{ $order->billing_total }} DZD</td>
-                                <td class="text-center"><a class="btn btn-info" title="" data-toggle="tooltip" href="{{route('orders.show',$order->id)}}" data-original-title="View"><i class="fa fa-eye"></i></a>
+                                <td class="text-center"><a class="btn btn-info" title="" data-toggle="tooltip" href="{{route('ordersstatus.show',$order->id)}}" data-original-title="View"><i class="fa fa-eye"></i></a>
                                     @if (!$order->shipped)<a class="btn btn-danger" title="" data-toggle="tooltip" href="{{route('guestcheckout.refund',$order->id)}}" data-original-title="Return"><i class="fa fa-reply"></i></a>@endif
 								</td>
 							</tr>

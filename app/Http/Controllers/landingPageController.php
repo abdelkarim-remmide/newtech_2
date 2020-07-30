@@ -16,6 +16,7 @@ class landingPageController extends Controller
      */
     public function index()
     {
+
         $products = Product::inRandomOrder()->take(8)->get();
         $accessoireProducts = Product::with('category')->whereHas('category', function ($query) {
                 $query->where('slug', 'accessoire');

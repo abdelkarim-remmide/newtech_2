@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/cache', function(){
+    $exitCode = \Illuminate\Support\Facades\Artisan::call('config:cache');
+    dd('jj');
+});
+
 Route::get('/', 'landingPageController@index')->name('index');
 Route::get('/product-category', 'CategoryPageController@index')->name('category.index');
 Route::get('/checkout', 'CheckoutController@index')->name('checkout.index')->middleware('auth');
@@ -30,6 +35,7 @@ Route::post('/checkout', 'CheckoutController@store')->name('checkout.store');
 Route::get('/cart', 'CartController@index')->name('cart.index');
 Route::get('/sendmail/{id}', 'CheckoutController@sendEmail')->name('sendmail');
 Route::get('/downloadPDF/{id}','CheckoutController@downloadPDF')->name('downloadPDF');
+Route::get('/showPDF/{id}','CheckoutController@showPDF')->name('showPDF');
 Route::post('/cart', 'CartController@store')->name('cart.store');
 Route::delete('/cart/{product}', 'CartController@destroy')->name('cart.destroy');
 Route::patch('/cart/{product}', 'CartController@update')->name('cart.update');

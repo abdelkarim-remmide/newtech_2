@@ -74,25 +74,32 @@
         img {
             border: 0;
         }
+        .title{
+            color: #e62e04;
+        }
         .d-inline{
             display: inline;
+        }
+        .p-10{
+            padding-top: 20px;
         }
     </style>
   </head>
   <body>
 <div>
 
-    <img src="{{ public_path().'/image/catalog/logo.png' }}" class="d-inline" alt="" srcset="">
-    <img src="{{ public_path().'/image/catalog/satim.jpg' }}" class="d-inline text-right" style="width: 160px;height:80px" alt="" srcset="">
+    <img src="{{public_path('/image/catalog/logo2.png')}}" class="d-inline" alt="" srcset="">
+    <img src="{{ public_path().'/image/cib.png' }}" class="d-inline text-right" style="width: 140px;height:80px" alt="" srcset="">
 </div>
 
 
       <div class="row">
         <!--Middle Part Start-->
-        <div id="content" class="col-sm-9">
-            <h2 class="title">Infromation de la commande</h2>
+        <div id="content" class="col-sm-9 p-10">
+            <h2 class="title text-center">Reçu de paiement</h2>
+            <h2 class="title text-center">Votre paiement a été accepté</h2>
 
-            <table class="table table-bordered table-hover" width="100%" style="width:100%">
+            <table class="table table-bordered table-hover p-10" width="100%" style="width:100%">
                 <thead>
                     <tr>
                         <td colspan="2" class="text-left">Les details de la commande</td>
@@ -114,7 +121,7 @@
                     </tr>
                 </tbody>
             </table>
-            <table class="table table-bordered table-hover" width="100%" style="width:100%">
+            <table class="table table-bordered table-hover p-10" width="100%" style="width:100%">
                 <thead>
                     <tr>
                         <td style="width: 50%; vertical-align: top;" class="text-left">Adresse de livraison</td>
@@ -130,10 +137,9 @@
                 </tbody>
             </table>
             <div class="table-responsive">
-                <table class="table table-bordered table-hover">
+                <table class="table table-bordered table-hover p-10">
                     <thead>
                         <tr>
-                            <td class="text-center">Image</td>
                             <td class="text-left">Nom de produit</td>
                             <td class="text-left">Quantity</td>
                             <td class="text-right">Prix unitaire</td>
@@ -144,14 +150,10 @@
                         @foreach ($products as $product)
 
                         <tr>
-                            <td class="text-center"><img
-                                width="100px" height="100px" src="{{ public_path().'/storage/'.$product->image }}"
-                                alt="{{ $product->name }}" title="{{ $product->name }}"
-                                class="img-thumbnail" /></td>
                             <td class="text-left">{{$product->name}} </td>
                             <td class="text-right">{{$product->pivot->quantity}}</td>
-                            <td class="text-right">{{$product->price}} DZD</td>
-                            <td class="text-right">{{$product->pivot->quantity * $product->price}} DZD</td>
+                            <td class="text-right">{{$product->price}} DA</td>
+                            <td class="text-right">{{$product->pivot->quantity * $product->price}} DA</td>
 
                         </tr>
                         @endforeach
@@ -159,16 +161,16 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="3"></td>
+                            <td colspan="2"></td>
                             <td class="text-right"><b>Sous-Total</b>
                             </td>
-                            <td class="text-right">{{$order->billing_subtotal}} DZD</td>
+                            <td class="text-right">{{$order->billing_subtotal}} DA</td>
                         </tr>
                         <tr>
-                            <td colspan="3"></td>
+                            <td colspan="2"></td>
                             <td class="text-right"><b>Total</b>
                             </td>
-                            <td class="text-right">{{$order->billing_total}} DZD</td>
+                            <td class="text-right">{{$order->billing_total}} DA</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -177,6 +179,8 @@
 
 
         </div>
+        <h2>Merci de votre confiance</h2>
+      </div>
 
 </body>
 </html>

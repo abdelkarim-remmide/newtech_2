@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\CheckoutRequest;
 use Illuminate\Support\Facades\Http;
 use App\Category;
+use Illuminate\Support\Facades\Response as FacadeResponse;
 
 class CheckoutController extends Controller
 {
@@ -62,22 +63,19 @@ class CheckoutController extends Controller
         $order = $this->addToOrdersTables($request,null);
 
         if($order->payment_gateway=="Cart CIB"){
-            $url = "https://test.satim.dz/payment/rest/register.do";
-            $response = Http::post("https://40704a77-8413-4455-a205-cb872b330713.mock.pstmn.io/register",[
-                'currency' => '012',
-                'amount' => Cart::total(),
-                'orderNumber' => $order->id,
-                'language' => 'fr',
+            $url = 'https://test.satim.dz/payment/rest/register.do';
+            $response = Http::get($url,[
                 'userName' => 'newtech2018',
                 'password' => 'satim120',
+                'currency' => '012',
+                'amount' => Cart::total()*100,
+                'orderNumber' => $order->id,
+                'language' => 'fr',
                 'returnUrl' => url("/confirm/{$order->id}"),
-                'failUrl' => "",
-                'jsonParams' => [
-                    'force_terminal_id' => 'E021000004',
-                    'udf1' => '2018105301346',
-                    'udf5' => 'ggsf85s42524s5uhgsf'
-                ]
+                'jsonParams'=> '{"force_terminal_id":"E021000004","udf1":"2018105301346","udf5":"ggsf85s42524s5uhgsf"}'
+                
             ]);
+            
             $data = $response->json();
             if($response->successful()){
                 if($data['errorCode']=="0"){
@@ -93,13 +91,13 @@ class CheckoutController extends Controller
                     $order->error = $data['errorMessage'];
                     $order->order_status = 'O';
                     $order->save();
-                    return back()->withErrors('Desole i y avai une error avec le system de payment.');
+                    return redirect()->route('guestcheckout.index')->withErrors('Desole i y avai une error avec le system de payment.')->withInput();
                 }
             }else{
                 $order->error = "connection error";
                 $order->order_status = 'O';
                 $order->save();
-                return back()->withErrors('Desole i y avai une error avec le system de payment.');
+                return redirect()->route('guestcheckout.index')->withErrors('Desole i y avai une error avec le system de payment.')->withInput();
             }
         }
         $order->order_status = 'C';
@@ -133,6 +131,22 @@ class CheckoutController extends Controller
         $pdf = PDF::loadView('pdf', $data);
         return $pdf->download('invoice.pdf');
     }
+
+    public function showPDF($id)
+    {
+
+        $order = Order::where('id',$id)->firstOrFail();
+
+        $products = $order->products;
+        $data=[
+            'order'=>$order,
+            'products'=>$products
+        ];
+        $pdf = PDF::loadView('pdf', $data);
+        return $pdf->stream();
+    }
+
+
 
     protected function addToOrdersTables($request, $error)
     {
@@ -209,12 +223,13 @@ class CheckoutController extends Controller
     public function edit($id)
     {
         $order = Order::where('id',$id)->firstOrFail();
-        if($order->order_status != 'E'){
+        /*if($order->order_status != 'E'){
             abort(404);
-        }
+        }*/
+        
         $categories = Category::whereNull('parent_id')->get();
-        $url = "https://test.satim.dz/payment/rest/register.do";
-        $response = Http::post("https://40704a77-8413-4455-a205-cb872b330713.mock.pstmn.io/confirm",[
+        $url = "https://test.satim.dz/payment/rest/confirmOrder.do";
+        $response = Http::get($url,[
             'orderId' => $order->transation_code,
             'language' => 'fr',
             'userName' => 'newtech2018',
@@ -224,7 +239,7 @@ class CheckoutController extends Controller
         $data = $response->json();
 
         if($response->successful()){
-            if($data['errorCode']=="0" && $data['params']['respCode']=="00" && $data['orderStatus']=="2"){
+            if($data['ErrorCode']=="0" && !empty($data['params']) && $data['params']['respCode']=="00" && $data['OrderStatus']=="2"){
                 $order->order_status = 'C';
                 $order->approvalCode = $data['approvalCode'];
                 $order->respCode = $data['params']['respCode'];
@@ -236,7 +251,7 @@ class CheckoutController extends Controller
                     'products'=>$products,
                     'categories'=>$categories
                 ]);
-            }elseif ($data['errorCode']=="0" && $data['params']['respCode']=="00" && $data['orderStatus']=="3"){
+            }elseif ($data['ErrorCode']=="0" && !empty($data['params']) && $data['params']['respCode']=="00" && $data['OrderStatus']=="3"){
                 $order->order_status = 'R';
                 $order->respCode = $data['params']['respCode'];
                 $order->save();
@@ -245,7 +260,9 @@ class CheckoutController extends Controller
                 ]);
             }else{
                 $order->order_status = 'F';
-                $order->respCode = $data['params']['respCode'];
+                if(!empty($data['params']))
+                    $order->respCode = $data['params']['respCode'];
+                else $data['actionCodeDescription'];
                 $order->save();
                 return view('order-fail')->with([
                     'data'=>$data,
@@ -279,7 +296,9 @@ class CheckoutController extends Controller
         }
         $categories = Category::whereNull('parent_id')->get();
         $url = "https://test.satim.dz/payment/rest/refund.do";
-        $response = Http::post("https://40704a77-8413-4455-a205-cb872b330713.mock.pstmn.io/refund",[
+        $response = Http::get($url,[
+            'currency' => '012',
+            'amount' => $order->billing_total*100,
             'orderId' => $order->transation_code,
             'language' => 'fr',
             'userName' => 'newtech2018',

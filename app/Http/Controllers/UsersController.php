@@ -78,8 +78,8 @@ class UsersController extends Controller
             'tel' => 'required|string|max:15',
             'email' => 'required|string|email|max:255|unique:users,email,'.auth()->id(),
             'old_password' => ['sometimes','nullable','string', new MatchOldPassword],
-            'new_password' => 'required_with:old_password|string|min:7',
-            'new_confirm' => 'same:new_password'
+            'new_password' => 'required_with:old_password|nullable|string|min:7',
+            'new_confirm' => 'nullable|string|same:new_password'
         ]);
 
         $user = auth()->user();

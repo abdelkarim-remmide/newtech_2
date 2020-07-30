@@ -18,7 +18,7 @@ class OrdersController extends Controller
     {
 
         $categories = Category::whereNull('parent_id')->get();
-        $orders = auth()->user()->orders()->where('order_status','C')->with('products')->get(); // fix n + 1 issues
+        $orders = auth()->user()->orders()->where('order_status',"=",'C')->with('products')->get(); // fix n + 1 issues
 
         return view('order-history')->with([
             'orders'=> $orders,

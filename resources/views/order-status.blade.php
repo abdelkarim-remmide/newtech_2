@@ -18,7 +18,7 @@
                 <div class="text-center no-print">
                     <ul style="display:flex;padding: 10px 5px;">
                         <li style="padding-right: 10px"><a href="{{route('downloadPDF', $order->id)}}" target="" id="cmd"><i class="fa fa-download"></i> Télécharger</a></li>
-                        <li style="padding-right: 10px"><a href="javascript:window.print()"><i class="fa fa-print"></i> Imprimer</a></li>
+                        <li style="padding-right: 10px"><a href="{{route('showPDF', $order->id)}}" target="_blank" ><i class="fa fa-print"></i> Imprimer</a></li>
                     <li><a href="{{ route('sendmail',$order->id) }}"><i class="fa fa-mail-forward"></i> Envoyer par mail</a></li>
                     </ul>
                 </div>
